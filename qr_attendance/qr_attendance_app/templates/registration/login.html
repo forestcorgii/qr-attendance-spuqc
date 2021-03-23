@@ -1,0 +1,34 @@
+{% extends "base2.html" %} 
+{% load static %}
+{% block content %} 
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+<div class="d-flex justify-content-center" style="height: 97vh;">
+    <!-- <div class="align-self-center flex-row w-50">         -->
+        <div class="align-self-center card" style="max-width: 350px;">
+            <img src="{% static 'img/logo.png' %}" class="card-img-top"  alt="logo">
+            <div class="card-body">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                        <div class="flex-row mb-1">
+                            <div class="flex-fill">{{ form.username.label_tag }}</div>
+                            <div class="flex-fill">{{ form.username }}</div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-fill">{{ form.password.label_tag }}</div>
+                            <div class="flex-fill">{{ form.password }}</div>
+                        </div>
+                        <div class="d-flex mt-4">
+                            <input class="btn btn-success" type="submit" value="login" style="width: 100%;" />
+                        </div>                
+                        <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+                    
+            </div>
+        </div>
+
+    <!-- </div> -->
+</div>
+
+{% endblock %}

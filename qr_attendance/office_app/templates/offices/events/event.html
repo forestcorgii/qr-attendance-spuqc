@@ -1,0 +1,52 @@
+{% extends "../layout.html" %} 
+{% block title %}Events{% endblock %} 
+{%block content %}
+
+<div class="container mt-2">
+	<h4>Events</h4>
+	{% for event in events %}
+	<div class="card mb-2">
+		<div class="card-body">
+			<div class="d-flex flex-row card-title mb-0">
+				<div><h5 class="text-uppercase">{{ event.name }}</h5></div>
+				<div class="ml-auto">						
+					{% for attendees in event.attendees.all %}
+						<span class="badge badge-success">{{ attendees.acronym }}</span>
+					{% endfor %}
+				</div>
+			</div>
+			<small class="card-subtitle text-muted">{{ event.event_datetime_from_str }} to {{ event.event_time_to_str }}</small>
+
+			<hr>				
+			<p class="card-text">{{ event.description }}</p>				
+			<br>
+			<a href="{% url 'event_detail' event.id %}" class="card-link">See Details</a>                
+		</div>
+	</div>
+	{% endfor %}
+</div>	
+
+<div class="container mt-2">
+	<h4>Create Event</h4>
+	<form action="{% url 'event' %}" method="POST">
+		{% csrf_token %}
+		<div class="form-group">
+			{{ form }}				
+			<div class="d-flex justify-content-end mt-2 mb-2">
+				<button class="btn btn-dark" type="submit">Create</button>
+			</div>
+		</div>
+	</form>			
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+{% endblock %} 

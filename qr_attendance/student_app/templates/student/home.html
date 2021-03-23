@@ -1,0 +1,44 @@
+{% extends "../student/layout.html" %}
+{% load static %}
+
+{% block title %}Student{% endblock %}
+
+{% block header %}
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <link rel="stylesheet" href="{% static 'css/scheduler.css' %}"/>
+{% endblock %}
+
+
+{%block content %}
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
+	
+	<div class="container mt-3">
+        {% for event in events %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="d-flex flex-row card-title mb-0">
+                        <div><h5 class="text-uppercase">{{ event.name }}</h5></div>
+                        <div class="ml-auto">						
+                            {% for attendees in event.attendees.all %}
+                                <span class="badge badge-success">{{ attendees.acronym }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <small class="card-subtitle text-muted"><strong>{{ event.event_date_str }}</strong> from {{ event.event_time_from_str }} to {{ event.event_time_to_str }}</small>
+
+                    <hr>				
+                    <p class="card-text">{{ event.description }}</p>				
+                    
+                </div>
+            </div>
+        {% endfor %}
+	</div>
+	
+
+
+{% endblock %}
+
+{%block scripts %}
+{% endblock %}

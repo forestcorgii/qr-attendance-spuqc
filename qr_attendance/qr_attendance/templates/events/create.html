@@ -1,0 +1,24 @@
+{% extends "../index.html" %}
+{% block title %}Create Event{% endblock %}
+
+
+{%block content %}
+	<br />
+	<div class="container-sm border w-50 mt-20">
+		<h3 class="m-2">Create Event</h3>
+		<hr />
+		<form action="/events/create/" method="POST">
+			{% csrf_token %}
+			<table class="">{{ form }}</table>
+
+			<div class="form-group text-end">
+				<input class="btn btn-primary" type="submit" value="Create" />
+			</div>
+		</form>
+	</div>
+
+	{% if isCreated %}
+		<div class="alert alert-success" role="alert">Event has been created!</div>
+		<img src="{{ qr }}" alt="Event" />
+	{% endif %} 
+{% endblock %}

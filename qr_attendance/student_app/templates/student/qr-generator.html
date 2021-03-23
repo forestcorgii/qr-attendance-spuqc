@@ -1,0 +1,25 @@
+{% extends "../student/layout.html" %}
+
+
+{% block title %}Student{% endblock %}
+
+
+{%block content %}
+
+
+
+<div id="reader"></div>
+<div class="container-fluid" style="max-width: 500px;max-height: 500px;">
+    <img src="{{ qr }}" height="100%" width="100%" >
+</div>
+{% endblock %}
+
+{%block scripts %}
+<script>
+    (function da() {
+            setInterval(() => {
+                location.reload();
+            }, 3000);
+        })();
+</script>
+{% endblock %}

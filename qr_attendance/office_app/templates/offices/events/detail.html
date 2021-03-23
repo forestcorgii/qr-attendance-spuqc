@@ -1,0 +1,161 @@
+{% extends "offices/layout.html" %} 
+{% load static %} 
+{% block title %}Event Detail{% endblock %} 
+{%block content %}
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
+<!-- <div class="d-flex flex-column justify-content-center"> -->
+	
+	<div class="container mt-5">
+		{% if not event.is_active %}
+		<div class="alert alert-success" role="alert">
+			<h4 class="alert-heading">The Following Event has Ended</h4>
+			<p>You can no longer add attendance or edit the following details below.</p>
+			<!-- <hr> -->
+			<!-- <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p> -->
+		</div>
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Student ID</th>
+						<th>Name</th>
+						<th>Date Arrived</th>
+					</tr>
+				</thead>					
+				<tbody>
+					{% for student in attendance %}
+						<tr>
+							<td>{{ student.student.user.id_number }}</td>
+							<td>{{ student.student.firstname }}</td>
+							<td>{{ student.datetime_arrived_str }}</td>
+						</tr>
+					{% endfor %}
+					<tr></tr>
+				</tbody>
+			</table>	
+		</div>
+		{% else %}
+			<div id="qr-reader"></div>
+			<div id="qr-reader-results"></div>
+		{% endif %}
+	</div>
+	<hr />
+
+	<div class="container mt-2">
+		<h4>Event Detail</h4>
+		<form action="{% url 'event_detail' event_id %}" method="POST">
+			{% csrf_token %}
+			<div class="form-group">
+				{{ form }}				
+				<div class="d-flex justify-content-end mt-2 mb-2">
+					{% if not event.is_active %}
+						<button class="btn btn-danger m-1" disabled>Delete</button>
+						<button class="btn btn-secondary m-1" disabled>Edit</button>
+					{% else %}
+						<button class="btn btn-danger m-1" type="submit" name="send" value="delete">Delete</button>
+						<button class="btn btn-secondary m-1" type="submit" name="send" value="edit">Edit</button>
+					{% endif %}
+				</div>
+			</div>
+		</form>			
+	</div>
+<!-- </div> -->
+
+
+{% endblock %} 
+
+{%block scripts %}
+<!-- <script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script> -->
+<script src="{% static 'js/html5-qr-code.js' %}"></script>
+
+
+
+<script>
+	function getCookie(name) {
+		var cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+
+	function sendTestAPI(message){
+		let data = new FormData();
+		data.append('message',message);
+		data.append('user_email','{{ user.email }}');
+		data.append('event_id','{{ event_id }}');
+		data.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').attr('value'));
+		fetch("{% url 'scan_event' %}", {
+			method: 'POST',
+			body: data,
+			credentials: 'same-origin',
+		}).then(response => response.text())
+		.then(result => alert(result))
+		.catch(error => alert.log('error', error));
+	}
+</script>
+
+
+
+<script>
+		function docReady(fn) {
+		// see if DOM is already available
+		if (
+			document.readyState === "complete" ||
+			document.readyState === "interactive"
+		) {
+			// call on next available tick
+			setTimeout(fn, 1);
+		} else {
+			document.addEventListener("DOMContentLoaded", fn);
+			// da();
+		}
+	}
+
+	docReady(function () {
+		var resultContainer = document.getElementById("qr-reader-results");
+		var lastResult,
+			countResults = 0;
+
+		var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+			fps: 10,
+			qrbox: 250,
+		});
+		function onScanSuccess(qrCodeMessage) {
+			if (qrCodeMessage !== lastResult) {
+				++countResults;
+				lastResult = qrCodeMessage;
+				// html5QrcodeScanner.__setHeaderMessage(qrCodeMessage);
+				
+				var confirmed = confirm(qrCodeMessage);
+				var re = /^([0-9]+)_([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})$/;
+				if( re.exec(qrCodeMessage)){
+					if(confirmed){
+						sendTestAPI(qrCodeMessage);
+					}
+				}else{console.log("invalid QR Code format.")}
+			}
+		}
+
+		// Optional callback for error, can be ignored.
+		function onScanError(qrCodeError) {
+			// This callback would be called in case of qr code scan error or setup error.
+			// You can avoid this callback completely, as it can be very verbose in nature.
+		}
+
+		html5QrcodeScanner.render(onScanSuccess, onScanError);
+	});
+</script>
+
+
+
+{% endblock %}
