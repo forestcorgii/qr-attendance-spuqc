@@ -61,7 +61,6 @@ def event(request):
 @login_required()
 def detail(request, pk):
     event = models.Event.objects.get(pk=pk)    
-
     # if request.method == 'POST':
     #     form = forms.EventForm(request.POST)
     #     if form.is_valid():
@@ -86,7 +85,9 @@ def detail(request, pk):
         form = forms.EventForm(instance=event, auto_id=False)
     
     
+    
     context = {
+        'event':event,
         'event_id':event.id,
         'form': form.as_p(),
         'user':request.user

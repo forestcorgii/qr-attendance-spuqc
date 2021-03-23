@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,PermissionsMixin
 
 
+
 class Course(models.Model):
     name = models.CharField(max_length=100,blank=False,null=True)
     acronym = models.CharField(max_length=6, blank=False, null=True)
@@ -11,6 +12,9 @@ class Course(models.Model):
 
 class Location(models.Model):
     name = models.CharField(max_length=100,blank=False,null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class MyUserManager(BaseUserManager):

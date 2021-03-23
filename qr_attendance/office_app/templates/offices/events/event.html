@@ -1,6 +1,7 @@
 {% extends "../layout.html" %} 
 {% block title %}Events{% endblock %} 
 {%block content %}
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
 
 <div class="container mt-2">
 	<h4>Events</h4>
@@ -8,19 +9,19 @@
 	<div class="card mb-2">
 		<div class="card-body">
 			<div class="d-flex flex-row card-title mb-0">
-				<div><h5 class="text-uppercase">{{ event.name }}</h5></div>
+				<div><a href="{% url 'event_detail' event.id %}" class="card-link"><h5 class="text-uppercase">{{ event.name }}</h5></a></div>
 				<div class="ml-auto">						
 					{% for attendees in event.attendees.all %}
 						<span class="badge badge-success">{{ attendees.acronym }}</span>
 					{% endfor %}
 				</div>
 			</div>
-			<small class="card-subtitle text-muted">{{ event.event_datetime_from_str }} to {{ event.event_time_to_str }}</small>
-
-			<hr>				
-			<p class="card-text">{{ event.description }}</p>				
+			<small class="card-subtitle text-muted"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{ event.location.name }}</small> 
 			<br>
-			<a href="{% url 'event_detail' event.id %}" class="card-link">See Details</a>                
+			<small class="card-subtitle text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{ event.event_datetime_from_str }} to {{ event.event_time_to_str }}</small>
+			</p>			
+			<hr>				
+			<p class="card-text">{{ event.description }}</p>							
 		</div>
 	</div>
 	{% endfor %}

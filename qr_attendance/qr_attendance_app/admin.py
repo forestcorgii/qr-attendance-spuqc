@@ -32,6 +32,12 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+
+        # if user.role = models.Client.OFFICE_SECRETARY:
+        #     student = student_app.models.Student()
+        #     student.user = user            
+        # elif user.role = models.Client.STUDENT:
+
         return user
 
 

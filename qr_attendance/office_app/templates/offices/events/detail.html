@@ -6,7 +6,7 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
 <!-- <div class="d-flex flex-column justify-content-center"> -->
 	
-	<div class="container mt-5">
+	<div class="container mt-2">
 		{% if not event.is_active %}
 		<div class="alert alert-success" role="alert">
 			<h4 class="alert-heading">The Following Event has Ended</h4>
@@ -15,33 +15,39 @@
 			<!-- <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p> -->
 		</div>
 		<div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Student ID</th>
-						<th>Name</th>
-						<th>Date Arrived</th>
-					</tr>
-				</thead>					
-				<tbody>
-					{% for student in attendance %}
+			{% if attendance.count > 0 %}
+				<table class="table">
+					<thead>
 						<tr>
-							<td>{{ student.student.user.id_number }}</td>
-							<td>{{ student.student.firstname }}</td>
-							<td>{{ student.datetime_arrived_str }}</td>
+							<th>Student ID</th>
+							<th>Name</th>
+							<th>Date Arrived</th>
 						</tr>
-					{% endfor %}
-					<tr></tr>
-				</tbody>
-			</table>	
+					</thead>					
+					<tbody>
+						{% for student in attendance %}
+							<tr>
+								<td>{{ student.student.user.id_number }}</td>
+								<td>{{ student.student.firstname }}</td>
+								<td>{{ student.datetime_arrived_str }}</td>
+							</tr>
+						{% endfor %}
+						<tr></tr>
+					</tbody>
+				</table>
+			{% else %}
+				<div class="alert alert-danger" role="alert">
+					No Student has Attended.
+				</div>
+			{% endif %}
 		</div>
 		{% else %}
 			<div id="qr-reader"></div>
 			<div id="qr-reader-results"></div>
 		{% endif %}
 	</div>
-	<hr />
-
+	<!-- <hr /> -->
+	
 	<div class="container mt-2">
 		<h4>Event Detail</h4>
 		<form action="{% url 'event_detail' event_id %}" method="POST">
@@ -50,8 +56,8 @@
 				{{ form }}				
 				<div class="d-flex justify-content-end mt-2 mb-2">
 					{% if not event.is_active %}
-						<button class="btn btn-danger m-1" disabled>Delete</button>
-						<button class="btn btn-secondary m-1" disabled>Edit</button>
+					<button class="btn btn-danger m-1" disabled>Delete</button>
+					<button class="btn btn-secondary m-1" disabled>Edit</button>
 					{% else %}
 						<button class="btn btn-danger m-1" type="submit" name="send" value="delete">Delete</button>
 						<button class="btn btn-secondary m-1" type="submit" name="send" value="edit">Edit</button>

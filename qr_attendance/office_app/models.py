@@ -2,6 +2,7 @@ from django.db import models
 from qr_attendance_app.models import Client,Course,Location
 # Create your models here.
 
+from django.utils import timezone
 import datetime
 
 class Office(models.Model):
@@ -13,7 +14,10 @@ class Office(models.Model):
         return self.office_name
 
 
-class Event(models.Model):    
+class Event(models.Model):
+    class Meta:
+        ordering = ['-event_datetime_from']
+
     name = models.CharField(max_length=75)
     office = models.ForeignKey(Office,
                                    on_delete=models.CASCADE,
@@ -36,9 +40,10 @@ class Event(models.Model):
     def validate_event_datetime(self):
         return (event_datetime_to - event_datetime_from).total_seconds > 0
 
+    @property
     def is_active(self):
-        timespan = datetime.datetime.now() - self.event_datetime_from 
-        return timespan.total_seconds > -(15 * 60) and timespan.total_seconds < (15 * 60)
+        timespan = (timezone.now() - self.event_datetime_from)
+        return timespan.total_seconds() > -(15 * 60) and timespan.total_seconds() < (100 * 60)
 
     def event_date_str(self):
         return self.event_datetime_from.strftime("%m/%d/%Y")

@@ -44,7 +44,18 @@
       {% block menu %}{% endblock %}
     </ul>
     <ul class="navbar-nav">      
-      {% block profile %}{% endblock %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ user.email }}
+        </a>
+        {% block profile %}{% endblock %}
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
+          <a class="dropdown-item" href="{% url 'logout2' %}">Logout</a>
+        </div>
+        <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        </div> -->
+      </li>
     </ul>
   </div>
 </nav>
