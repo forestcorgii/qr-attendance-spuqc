@@ -1,6 +1,7 @@
 {% extends "base2.html" %} 
 {% load static %}
 {% block content %} 
+{{ block.super }}
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -9,6 +10,11 @@
         <div class="align-self-center card" style="max-width: 350px;">
             <img src="{% static 'img/logo.png' %}" class="card-img-top"  alt="logo">
             <div class="card-body">
+                {% if auth_failed %}
+                <div class="alert alert-danger" role="alert">
+				Wrong username or password
+				</div>
+                {% endif %}
                 <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                         <div class="flex-row mb-1">
@@ -22,6 +28,7 @@
                         <div class="d-flex mt-4">
                             <input class="btn btn-success" type="submit" value="login" style="width: 100%;" />
                         </div>                
+                        <a class="d-flex justify-content-end" href="#"><u>Forgot Password</u></a>
                         <input type="hidden" name="next" value="{{ next }}" />
                 </form>
                     

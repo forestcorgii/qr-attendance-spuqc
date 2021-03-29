@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = '%ucda2(k5(y)cbfi7(a%+1wt$@ryz9j*o&-u_=r%wqzhglx&o4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.100.21','192.168.27.101', '192.168.43.218']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.100.21','192.168.27.101', '192.168.43.218','192.168.0.34']
 
 
 # Application definition
@@ -64,7 +65,7 @@ ROOT_URLCONF = 'qr_attendance.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,6 +110,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -132,3 +140,5 @@ STATIC_URL = '/static/'
 # MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'qr_attendance_app.Client'
+
+LOGIN_URL = '/'

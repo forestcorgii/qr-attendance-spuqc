@@ -15,20 +15,20 @@
 			<!-- <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p> -->
 		</div>
 		<div>
-			{% if attendance.count > 0 %}
+			{% if event.attendance_set.all.count > 0 %}
 				<table class="table">
 					<thead>
 						<tr>
+							<th>Fullname</th>
 							<th>Student ID</th>
-							<th>Name</th>
-							<th>Date Arrived</th>
+							<th>Time Arrived</th>
 						</tr>
 					</thead>					
 					<tbody>
-						{% for student in attendance %}
+						{% for student in event.attendance_set.all %}
 							<tr>
+								<td>{{ student.student.user.fullname }}</td>
 								<td>{{ student.student.user.id_number }}</td>
-								<td>{{ student.student.firstname }}</td>
 								<td>{{ student.datetime_arrived_str }}</td>
 							</tr>
 						{% endfor %}

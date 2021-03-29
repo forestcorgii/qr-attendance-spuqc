@@ -38,7 +38,7 @@ class Event(models.Model):
 
 
     def validate_event_datetime(self):
-        return (event_datetime_to - event_datetime_from).total_seconds > 0
+        return (self.event_datetime_to - self.event_datetime_from).total_seconds > 0
 
     @property
     def is_active(self):
@@ -71,3 +71,5 @@ class Event(models.Model):
     def event_month_str(self):
         return self.event_datetime_from.strftime("%b")
     
+    def __str__(self):
+        return self.name

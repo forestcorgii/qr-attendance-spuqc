@@ -13,5 +13,8 @@ urlpatterns = [
         auth_views.PasswordChangeView.as_view(success_url='/'),
         name='change_password'
     ),
-    path('admin/other',views.admin,name='admin_otherpage'),
+    path('admin/login/',views.index, name='password_change_done'),
+    path('admin/import/', views.import_user, name='admin_import'),
+
+
 ]

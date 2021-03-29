@@ -30,6 +30,7 @@ class MyUserManager(BaseUserManager):
             email=self.normalize_email(email),
         )
 
+
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -85,8 +86,11 @@ class Client(AbstractBaseUser,PermissionsMixin):
     class Meta:
         permissions = (('office_secretary','Office Secretary'),('student','Student'))
 
+    def fullname(self):
+        return f"{self.last_name}, {self.first_name} {self.middle_initial}"
+
     def __str__(self):
-        return self.email
+        return self.fullname()
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"

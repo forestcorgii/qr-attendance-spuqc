@@ -7,7 +7,10 @@ class Student(models.Model):
     # student_id = models.IntegerField(primary_key=True,blank=False)
     user = models.OneToOneField(Client, on_delete=models.CASCADE,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
-    
+
+    def __str__(self):
+        return f"{self.user.id_number} - {self.user.fullname()}"
+
 
 class Attendance(models.Model):
     event = models.ForeignKey(Event,
@@ -22,4 +25,4 @@ class Attendance(models.Model):
         return self.datetime_arrived.strftime("%x %I:%M%p")
     
     def __str__(self):
-        return self.id
+        return f"{self.student.user.fullname()} - {self.datetime_arrived_str()}"

@@ -14,5 +14,5 @@ class LoginForm(AuthenticationForm):
 class DocumentForm(forms.Form):
     docfile = forms.FileField(
         label='Select a file',
-        help_text='max. 42 megabytes'
+        widget=forms.FileInput(attrs={'class':'form-control','style':'height:3em'})
     )

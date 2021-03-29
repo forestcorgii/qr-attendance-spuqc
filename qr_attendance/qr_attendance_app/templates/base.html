@@ -38,9 +38,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>     FORMAT ITEMS LIKE THE ONE ABOVE  -->
       {% block menu %}{% endblock %}
     </ul>
     <ul class="navbar-nav">      
@@ -48,13 +45,11 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ user.email }}
         </a>
-        {% block profile %}{% endblock %}
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          {% block profile %}{% endblock %}
           <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
           <a class="dropdown-item" href="{% url 'logout2' %}">Logout</a>
-        </div>
-        <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-        </div> -->
+        </div>        
       </li>
     </ul>
   </div>

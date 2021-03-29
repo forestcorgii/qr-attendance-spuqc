@@ -15,9 +15,6 @@ from . import forms
 
 import datetime
 
-import csv
-import io
-
 
 def OfficerRoleCheck(user):    
     return user.is_authenticated and user.role == models.Client.OFFICE_SECRETARY
@@ -90,7 +87,8 @@ def detail(request, pk):
         'event':event,
         'event_id':event.id,
         'form': form.as_p(),
-        'user':request.user
+        'user': request.user,
+        
     }
     
     return render(request,'offices/events/detail.html',context)
