@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,PermissionsMixin
 
-
+from django.utils import timezone
 
 class Course(models.Model):
     name = models.CharField(max_length=100,blank=False,null=True)
@@ -108,3 +108,13 @@ class Client(AbstractBaseUser,PermissionsMixin):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
+
+class Term(models.Model):
+    FIRST = 0
+    SECOND = 1
+    SEMESTER_CHOICES = (
+        (FIRST,'FIRST'),
+        (SECOND,'SECOND'),
+    )
+    semester = models.PositiveSmallIntegerField(choices=SEMESTER_CHOICES, blank=False, null=True)
+    school_year = models.IntegerField(blank=False, null=True)
