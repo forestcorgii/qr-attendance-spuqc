@@ -27,7 +27,7 @@ SECRET_KEY = '%ucda2(k5(y)cbfi7(a%+1wt$@ryz9j*o&-u_=r%wqzhglx&o4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.100.21','192.168.27.101', '192.168.43.218','192.168.0.34']
+ALLOWED_HOSTS = ['127.0.0.1','spuqc-qr-attendance.herokuapp']
 
 
 # Application definition
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [    
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -59,7 +58,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS=True
 
 ROOT_URLCONF = 'qr_attendance.urls'
 
