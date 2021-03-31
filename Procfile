@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath qr_attendance qr_attendance.wsgi
