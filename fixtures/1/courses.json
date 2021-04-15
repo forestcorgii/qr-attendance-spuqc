@@ -1,0 +1,26 @@
+[
+	{
+		"model": "qr_attendance_app.Course",
+		"pk": 1,
+		"fields": {
+			"acronym": "BSAC",
+			"name": "Bachelor of Science in Accounting"
+		}
+	},
+	{
+		"model": "qr_attendance_app.Course",
+		"pk": 2,
+		"fields": {
+			"acronym": "BSIT",
+			"name": "Bachelor of Science in Information Technology"
+		}
+	},
+	{
+		"model": "qr_attendance_app.Course",
+		"pk": 3,
+		"fields": {
+			"acronym": "BSCS",
+			"name": "Bachelor of Science in Computer Science"
+		}
+	}
+]

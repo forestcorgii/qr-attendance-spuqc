@@ -40,9 +40,7 @@
                 <strong>{% firstof user.get_short_name user.get_username %}</strong>.
             {% endblock %}
             {% block userlinks %}
-                {% if site_url %}
-                    <a href="{{ site_url }}">{% translate 'View site' %}</a> /
-                {% endif %}
+                <a href="{% url 'admin_import' %}">{% translate 'Import' %}</a> /
                 {% if user.is_active and user.is_staff %}
                     {% url 'django-admindocs-docroot' as docsroot %}
                     {% if docsroot %}
@@ -67,7 +65,6 @@
     </div>
     {% endblock %}
     {% endif %}
-
     <div class="main shifted" id="main">
       {% if not is_popup and is_nav_sidebar_enabled %}
         {% block nav-sidebar %}
@@ -85,7 +82,8 @@
         <!-- Content -->
         <div id="content" class="{% block coltype %}colM{% endblock %}">
           {% block pretitle %}{% endblock %}
-          {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+          {% block content_title %}
+          {% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}          
           {% block content %}
             {% block object-tools %}{% endblock %}
             {{ content }}

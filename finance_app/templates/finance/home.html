@@ -1,0 +1,55 @@
+{% extends "../base.html" %}
+{% load static %}
+{% load finance_extras %}
+{% block title %}Finance Homepage{% endblock %}
+
+
+{% block menu %}
+{% endblock %}
+
+
+{%block profile %}      
+{% endblock %}
+
+{%block content %}
+
+<div class="container mt-2">
+    <h3>Students</h3>
+    <hr>
+    <form method="get">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_user__id_number__contains">Search:</label>
+            <input class="form-control" type="text"onFocus="this.setSelectionRange(0, this.value.length)" name="user__id_number__contains" id="id_user__id_number__contains" value="{{ students.form.user__id_number__contains.data }}" autofocus>
+            <input type="submit" hidden />
+        </div>
+    </form>
+
+    {% for student in students.qs %}
+    {% get_unsigned_clearance student as offices %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="card-title">
+                    <h5>{{ student.user.id_number }} - {{ student.user.fullname }}</h5>
+                </div>
+                <hr>
+                {% if offices|length > 0 %}
+                    <div class="alert alert-danger" role="alert">
+                        <h6 class="alert-heading"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Unsigned Clearance/s from:</h6>
+                        {% for office in offices %}
+                            <p>{{ office }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-success" role="alert">
+                        <h6 class="alert-heading"><i class="fa fa-check-circle" aria-hidden="true"></i> All Offices Signed.</h6>
+                    </div>	                    
+                {% endif %}
+            </div>                    
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+{%block scripts %}{% endblock %}

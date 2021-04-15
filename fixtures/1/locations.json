@@ -1,0 +1,23 @@
+[
+	{
+		"model": "qr_attendance_app.Location",
+		"pk": 1,
+		"fields": {
+			"name": "Intramuros"
+		}
+	},
+	{
+		"model": "qr_attendance_app.Location",
+		"pk": 2,
+		"fields": {
+			"name": "Manila Zoo"
+		}
+	},
+	{
+		"model": "qr_attendance_app.Location",
+		"pk": 3,
+		"fields": {
+			"name": "Rizal Park"
+		}
+	}
+]

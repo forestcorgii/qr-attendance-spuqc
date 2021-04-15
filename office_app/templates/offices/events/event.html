@@ -1,10 +1,13 @@
 {% extends "../layout.html" %} 
 {% block title %}Events{% endblock %} 
 {%block content %}
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
 
 <div class="container mt-2">
-	<h4>Events</h4>
+	<div class="d-flex">
+		<h3 class="ml-2">Events</h3>
+		<button style="margin-bottom: .5rem;" class="btn btn-outline-primary btn-sm ml-1 align-self-end" data-toggle="modal" data-target="#eventcreationModal"><i class="fa fa-plus"></i> </button>                                        
+	</div>
+	<hr>
 	{% for event in events %}
 	<div class="card mb-2">
 		<div class="card-body">
@@ -16,10 +19,11 @@
 					{% endfor %}
 				</div>
 			</div>
-			<small class="card-subtitle text-muted"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{ event.location.name }}</small> 
-			<br>
-			<small class="card-subtitle text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{ event.event_datetime_from_str }} to {{ event.event_time_to_str }}</small>
-			</p>			
+			<div class="d-flex flex-row">
+				<small class="card-subtitle text-muted mr-3"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{ event.location.name }}</small> 
+				<small class="card-subtitle text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{ event.event_datetime_from_str }} to {{ event.event_time_to_str }}</small>
+			</div>
+					
 			<hr>				
 			<p class="card-text">{{ event.description }}</p>							
 		</div>
@@ -27,18 +31,6 @@
 	{% endfor %}
 </div>	
 
-<div class="container mt-2">
-	<h4>Create Event</h4>
-	<form action="{% url 'event' %}" method="POST">
-		{% csrf_token %}
-		<div class="form-group">
-			{{ form }}				
-			<div class="d-flex justify-content-end mt-2 mb-2">
-				<button class="btn btn-dark" type="submit">Create</button>
-			</div>
-		</div>
-	</form>			
-</div>
 
 {% endblock %}
 

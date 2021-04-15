@@ -21,7 +21,14 @@ urlpatterns = [
     
 
     # path('events/edit/<int:pk>/',views.edit,name='edit_event'),
-    path('events/delete/<int:pk>/',views.delete,name='delete_event'),
+    path('events/', views.event_view, name='event'),
     path('events/<int:pk>/',views.detail,name='event_detail'),    
-    path('events/',views.event,name='event'),
+    path('events/create/', views.event_view, name='create_event'),
+    path('events/delete/<int:pk>/',views.delete,name='delete_event'),
+    
+
+    path('clearances/', views.clearances, name='office_clearances'),
+    path('clearances/approve/<int:pk>', views.approve_clearance, name='approve_clearance'),    
+    path('clearances/reject/<int:pk>', views.reject_clearance, name='reject_clearance'),    
+    path('clearances/cancel/<int:pk>', views.cancel_clearance_approval, name='cancel_clearance'),    
 ]

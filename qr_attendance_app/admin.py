@@ -87,12 +87,19 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+class TermAdmin(admin.ModelAdmin):
+
+    def get_form(self, request, obj=None, **kwargs):
+        self.exclude = ("date_closed", )
+        form = super(TermAdmin, self).get_form(request, obj, **kwargs)
+        return form
 
 
 # Now register the new UserAdmin...
 admin.site.register(models.Client, UserAdmin)
 admin.site.register(models.Course)
 admin.site.register(models.Location)
+admin.site.register(models.Term,TermAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 

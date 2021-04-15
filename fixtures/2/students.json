@@ -1,0 +1,37 @@
+[
+    {
+		"model": "student_app.Student",
+		"fields": {
+			"user": 6,
+			"course": 1
+		}
+	},
+    {
+        "model": "student_app.Student",
+        "fields": {
+            "user": 7,
+            "course": 2
+        }
+	},
+    {
+        "model": "student_app.Student",
+        "fields": {
+            "user": 8,
+            "course": 3
+        }
+    },
+    {
+        "model": "student_app.Student",
+        "fields": {
+            "user": 9,
+            "course": 1
+        }
+    },
+    {
+        "model": "student_app.Student",
+        "fields": {
+            "user": 10,
+            "course": 2
+        }
+    }
+]

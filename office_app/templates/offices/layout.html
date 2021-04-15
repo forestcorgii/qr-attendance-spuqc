@@ -4,20 +4,20 @@
 
 
 {% block menu %}
+    {% if not user.office.is_misc %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'event' %}">Events</a>        
+        </li>       
+    {% endif %}
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'event' %}">Events</a>        
-    </li>       
-    <li class="nav-item">
-        <a class="nav-link" href="#">Clearances</a>        
+        <a class="nav-link" href="{% url 'office_clearances' %}">Clearances</a>        
     </li>   
 {% endblock %}
 
 
-{%block profile %}      
-{% endblock %}
+{% block profile %}{% endblock %}
 
-{%block content %}
-{% endblock %}
+{% block content %}{% endblock %}
 
 
-{%block scripts %}{% endblock %}
+{% block scripts %}{% endblock %}

@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import logout_then_login
 from django.contrib.auth import login,authenticate
 
+from django.contrib.auth.decorators import login_required
+
 from . import models
 
 from . import forms
@@ -21,16 +23,22 @@ def index(request):
     else:
         return redirect('/accounts/login/')
 
-
+@login_required
 def profile(request):
+
     if request.user.role == models.Client.STUDENT:
         return redirect('/student/')
     elif request.user.role == models.Client.OFFICE_SECRETARY:
         return redirect('/office/')
+    elif request.user.role == models.Client.FINANCE:
+        return redirect('/finance/')
     elif request.user.is_admin:
-        return redirect('/admin/import/')
+        return redirect('/admin/')
         
+
+@login_required
 def admin(request):
+
     if request.method == 'POST':
         form = forms.DocumentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -38,8 +46,8 @@ def admin(request):
            filetxt = file.read().decode('utf-8')
            io_string = io.StringIO(filetxt)
            for line in csv.reader(io_string, delimiter=',', quotechar='|'):
-                client = main_models.Client
-                client.role = main_models.Client.STUDENT
+                client = models.Client
+                client.role = models.Client.STUDENT
                 client.id_number = line[0]
                 client.email = line[1]
                 client.last_name = line[2]
@@ -50,7 +58,7 @@ def admin(request):
 
                 student = student_models.Student
                 student.user = client
-                student.course = main_models.Course.objects.get(acronym=line[5])
+                student.course = models.Course.objects.get(acronym=line[5])
                 student.save()
     else:
         form = forms.DocumentForm()
@@ -65,10 +73,11 @@ def admin(request):
     return render(request,'admin/home.html',context)
 
 
-
+@login_required
 def user_logout(request):
     logout_then_login(request,login_url='/')
     return redirect('/')
+
 
 def user_login(request):
     auth_failed = False  
@@ -89,7 +98,7 @@ def user_login(request):
     
     return render(request, 'registration/login.html', {'form': form,'auth_failed':auth_failed})
 
-
+@login_required
 def import_user(request):
     msg = ''
     if request.method == 'POST':
@@ -117,6 +126,7 @@ def import_user(request):
         form = forms.DocumentForm()
     
     context = {
+        'term': models.CurrentTerm(),
         'user': request.user,
         'form': form,
         'has_permission':True,

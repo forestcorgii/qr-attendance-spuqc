@@ -3,10 +3,15 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,Permiss
 
 from django.utils import timezone
 
+from django.core.mail import send_mail
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 class Course(models.Model):
     name = models.CharField(max_length=100,blank=False,null=True)
-    acronym = models.CharField(max_length=6, blank=False, null=True)
-    
+    acronym = models.CharField(max_length=6, blank=False, null=True)    
+
     def __str__(self):
         return self.acronym
 
@@ -15,6 +20,38 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Term(models.Model):
+    class Meta:
+        ordering = ['-date_opened']  
+
+    FIRST = 1
+    SECOND = 2
+    SEMESTER_CHOICES = (
+        (FIRST,'FIRST'),
+        (SECOND,'SECOND'),
+    )
+    semester = models.PositiveSmallIntegerField(choices=SEMESTER_CHOICES, blank=False, null=True)
+    school_year = models.IntegerField(blank=False, null=True)
+
+    date_opened = models.DateField(null=True,blank=False)
+    date_closed = models.DateField(null=True)
+
+    def __str__(self):
+        return f"Y{self.school_year}T{self.semester}"
+
+    def is_closed(self):
+        return self.date_opened >= timezone.now().date() and not self.date_closed is None
+
+    def close(self):
+        self.date_closed = timezone.now()
+        self.save()
+
+
+
+def CurrentTerm():
+    return Term.objects.all()[0]
 
 
 class MyUserManager(BaseUserManager):
@@ -64,11 +101,11 @@ class Client(AbstractBaseUser,PermissionsMixin):
 
     STUDENT=0
     OFFICE_SECRETARY=1
-    HEAD=2
+    FINANCE=2
     ROLE_CHOICES = (
         (STUDENT, 'STUDENT'),
         (OFFICE_SECRETARY, 'OFFICE_SECRETARY'),
-        (HEAD, 'HEAD'),
+        (FINANCE, 'FINANCE'),
     )   
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=False, null=True)
         
@@ -109,12 +146,29 @@ class Client(AbstractBaseUser,PermissionsMixin):
         return self.is_admin
 
 
-class Term(models.Model):
-    FIRST = 0
-    SECOND = 1
-    SEMESTER_CHOICES = (
-        (FIRST,'FIRST'),
-        (SECOND,'SECOND'),
-    )
-    semester = models.PositiveSmallIntegerField(choices=SEMESTER_CHOICES, blank=False, null=True)
-    school_year = models.IntegerField(blank=False, null=True)
+
+# @receiver(post_save, sender=Term)
+# def term_handler(sender, instance, created, **kwargs):
+#     subject = ''
+#     content = ''
+#     if created:
+#         subject = 'Term opened.'
+#         content = f'''
+
+#         {instance}
+
+#         '''
+#     else:
+#         subject = 'Term closed.'
+#         content = f'''
+
+#         {instance}
+
+#         '''
+
+#     send_mail(
+#     subject,
+#     content,
+#     'seanivanf@gmail.com',
+#     ['seanivanf@gmail.com'],
+#     )

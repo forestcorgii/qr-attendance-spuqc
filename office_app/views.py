@@ -22,8 +22,16 @@ def OfficerRoleCheck(user):
 @user_passes_test(OfficerRoleCheck)
 @login_required()
 def home(request):
-    current_event = models.Event.objects.filter(event_datetime_from__date=datetime.date.today())
-    context = {'current_event': current_event}
+    office = request.user.office
+    events = office.RelevantEvents()
+    form = forms.EventForm(instance=models.Event(office=office), auto_id=False)
+
+    context = {
+        'term': main_models.CurrentTerm,
+        'events': events,
+        'user': request.user,
+        'form': form,
+    }
     return render(request,'offices/home.html',context)
 
 def profile(request):
@@ -32,46 +40,65 @@ def profile(request):
 
 @user_passes_test(OfficerRoleCheck)
 @login_required()
-def event(request):
-    office = models.Office.objects.get(secretary=request.user)
-    events = models.Event.objects.filter(office=office) 
+def event_view(request):
+    office = request.user.office
+    events = office.RelevantEvents()
 
-    if request.method == 'POST':
-        form = forms.EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/office/events/')
-    else:
-        form = forms.EventForm(instance=models.Event(office=office), auto_id=False)
+    form = forms.EventForm(instance=models.Event(office=office), auto_id=False)
 
     # office = models.Office.objects.get(secretary=request.user)
     # events = models.Event.objects.filter(office=office) 
     context = {
+        'terms':main_models.Term.objects.all(),
+        'term': main_models.CurrentTerm(),
         'events':events,
-        'office': office,
+        'user': request.user,
         'form':form
     }
     
     return render(request,'offices/events/event.html',context)
 
+
+
+@user_passes_test(OfficerRoleCheck)
+@login_required()
+def create_event(request):
+    if request.method == 'POST':
+        form = forms.EventForm(request.POST)
+        if form.is_valid():
+            event = models.Event()
+            event.term = main_models.CurrentTerm()
+            event.name = form.cleaned_data['name']
+            event.office = request.user.office
+            event.location = form.cleaned_data['location']
+            event.event_datetime_from = form.cleaned_data['event_datetime_from']
+            event.event_datetime_to = form.cleaned_data['event_datetime_to']
+            event.description = form.cleaned_data['description']
+            event.alternative_activity = form.cleaned_data['alternative_activity']
+            event.save()
+            event.attendees.set(form.cleaned_data['attendees']) 
+    
+    return redirect('/office/events/')
+
+
+
+
 @user_passes_test(OfficerRoleCheck)
 @login_required()
 def detail(request, pk):
     event = models.Event.objects.get(pk=pk)    
-    # if request.method == 'POST':
-    #     form = forms.EventForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('/')
     if request.method == 'POST':
         form = forms.EventForm(request.POST)
         if request.POST['send'] == 'edit':
             if form.is_valid():
+                event.term = main_models.CurrentTerm()
                 event.name = form.cleaned_data['name']
                 event.office = models.Office.objects.get(secretary=request.user) #form.cleaned_data['office']
+                event.location = form.cleaned_data['location']
                 event.event_datetime_from = form.cleaned_data['event_datetime_from']
                 event.event_datetime_to = form.cleaned_data['event_datetime_to']
                 event.description = form.cleaned_data['description']
+                event.alternative_activity = form.cleaned_data['alternative_activity']
                 event.attendees.set(form.cleaned_data['attendees']) 
                 event.save()
                 return redirect('/office/events/')
@@ -81,9 +108,8 @@ def detail(request, pk):
     else:
         form = forms.EventForm(instance=event, auto_id=False)
     
-    
-    
     context = {
+        'term': main_models.CurrentTerm(),
         'event':event,
         'event_id':event.id,
         'form': form.as_p(),
@@ -101,6 +127,7 @@ def delete(request, pk):
     event.delete()
 
     context = {
+        'term': main_models.CurrentTerm(),
         'event': event,
         'user': request.user,
         'message': 'Event Successfully Deleted.',
@@ -108,14 +135,15 @@ def delete(request, pk):
 
     return render(request,'offices/events/event.html',context)
     
-
+@user_passes_test(OfficerRoleCheck)
+@login_required()
 def Scan(request):
     splated = request.POST['message'].split('_')
     event = models.Event.objects.get(pk=int(request.POST['event_id']))
     # user = main_models.Client.objects.get(email=request.POST['user_email'])
     timespan = (datetime.datetime.now() - datetime.datetime.strptime(splated[1], "%Y-%m-%d %H:%M:%S"))
     if timespan.total_seconds() <= 17 and event.is_active:
-        attendance = student_models.Attendance()
+        attendance = models.Attendance()
         attendance.event = event
         attendance.student = student_models.Student.objects.get(user__id_number=splated[0])
         attendance.save()
@@ -127,3 +155,46 @@ def Scan(request):
         """.format(user.id_number,user.id_number, user.email))
     return HttpResponse('somthing went wrong, please try again.')
 
+
+
+@user_passes_test(OfficerRoleCheck)
+@login_required()
+def clearances(request):
+    context = {
+        'term': main_models.CurrentTerm(),
+        'user': request.user,
+        'clearances': models.Clearance.objects.filter(office=request.user.office,term=main_models.CurrentTerm())
+    }
+
+    return render(request,'offices/clearances/clearances.html',context)
+
+
+
+@user_passes_test(OfficerRoleCheck)
+@login_required()
+def approve_clearance(request, pk):
+    clearance = models.Clearance.objects.get(pk=pk)
+    clearance.signed = True
+    clearance.save()
+    return redirect('/office/clearances')
+
+
+@user_passes_test(OfficerRoleCheck)
+@login_required()
+def reject_clearance(request, pk):
+    if request.method == 'GET':
+        clearance = models.Clearance.objects.get(pk=pk)
+        clearance.reject_reason = request.GET['reject_reason']
+        clearance.signed = False
+        clearance.save()
+    return redirect('/office/clearances')
+
+
+@user_passes_test(OfficerRoleCheck)
+@login_required()
+def cancel_clearance_approval(request, pk):
+    clearance = models.Clearance.objects.get(pk=pk)
+    clearance.reject_reason = ''
+    clearance.signed = False
+    clearance.save()
+    return redirect('/office/clearances')

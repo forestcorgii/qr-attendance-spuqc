@@ -28,7 +28,7 @@
                         <div class="d-flex mt-4">
                             <input class="btn btn-success" type="submit" value="login" style="width: 100%;" />
                         </div>                
-                        <a class="d-flex justify-content-end" href="#"><u>Forgot Password</u></a>
+                        <a class="d-flex justify-content-end" href="{% url 'password_reset' %}"><u>Forgot Password</u></a>
                         <input type="hidden" name="next" value="{{ next }}" />
                 </form>
                     

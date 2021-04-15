@@ -1,0 +1,138 @@
+[
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 1,
+			"student": 1,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 1,
+			"student": 2,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 1,
+			"student": 3,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 1,
+			"student": 4,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 1,
+			"student": 5,
+			"term": 1,
+			"signed": true
+		}
+	},
+
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 2,
+			"student": 1,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 2,
+			"student": 2,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 2,
+			"student": 3,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 2,
+			"student": 4,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 2,
+			"student": 5,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 3,
+			"student": 1,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 3,
+			"student": 2,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 3,
+			"student": 3,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 3,
+			"student": 4,
+			"term": 1,
+			"signed": true
+		}
+	},
+	{
+		"model": "office_app.clearance",
+		"fields": {
+			"office": 3,
+			"student": 5,
+			"term": 1,
+			"signed": true
+		}
+	}
+]

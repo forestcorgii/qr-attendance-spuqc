@@ -1,0 +1,23 @@
+[
+	{
+		"model": "office_app.Office",
+		"fields": {
+			"name": "TEST OFFICE A",
+			"secretary": 3
+		}
+	},
+	{
+		"model": "office_app.Office",
+		"fields": {
+			"name": "TEST OFFICE B",
+			"secretary": 4
+		}
+	},
+    {
+		"model": "office_app.Office",
+		"fields": {
+			"name": "TEST OFFICE C",
+			"secretary": 5
+		}
+	}
+]

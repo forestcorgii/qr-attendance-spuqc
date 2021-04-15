@@ -1,0 +1,19 @@
+[
+	{
+		"model": "qr_attendance_app.Term",
+		"fields": {
+			"school_year": 2020,
+			"semester": 1,
+			"date_opened": "2021-06-02",
+			"date_closed": "2021-11-24"
+		}
+	},
+	{
+		"model": "qr_attendance_app.Term",
+		"fields": {
+			"school_year": 2020,
+			"semester": 2,
+			"date_opened": "2021-12-02"
+		}
+	}
+]

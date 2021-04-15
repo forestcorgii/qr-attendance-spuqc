@@ -33,10 +33,12 @@ ALLOWED_HOSTS = ['127.0.0.1','spuqc-qr-attendance.herokuapp']
 # Application definition
 
 INSTALLED_APPS = [
-    "sslserver",
+    'django_filters',
+    'sslserver',
     'rest_framework',
-     'qr_attendance_app.apps.QrAttendanceAppConfig',
+    'qr_attendance_app.apps.QrAttendanceAppConfig',
     'office_app.apps.OfficeAppConfig',
+    'finance_app.apps.FinanceAppConfig',
     'student_app.apps.StudentAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -142,5 +144,17 @@ AUTH_USER_MODEL = 'qr_attendance_app.Client'
 
 LOGIN_URL = '/'
 
+# EMAIL_BACKEND = 'mailer.backend.DbBackend'
+# MAILER_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'seanivanf@gmail.com'
+EMAIL_HOST_PASSWORD = 'Shiny@RECORD'
+
+
+SECURE_SSL_REDIRECT = False
 
 django_heroku.settings(locals())

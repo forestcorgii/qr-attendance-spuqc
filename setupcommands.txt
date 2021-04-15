@@ -1,0 +1,5 @@
+py manage.py migrate
+py manage.py loaddata fixtures/1/*.json && py manage.py loaddata fixtures/2/*.json && py manage.py loaddata fixtures/3/*.json && py manage.py loaddata fixtures/4/*.json
+
+
+python manage.py dumpdata qr_attendance_app.Client --indent 12 > users.json

@@ -1,11 +1,39 @@
 {% extends "../student/layout.html" %}
+{% load student_extras %}
 
 
 {% block title %}Student Clearances{% endblock %}
 
 
 {%block content %}
-
+<div class="container mt-3">
+    <h3>Clearances</h3>
+    <hr>
+    {% for iterm in terms %}
+        <h4 class="mt-3">{{ iterm }}</h4>
+        {% for office in offices %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h5>{{ office }}</h5>
+                        <hr>
+                    </div>
+                    {% get_clearance iterm office user.student as clearance %}
+                    {% if clearance is None %}
+                        <a href="{% url 'request_clearance' office.id %}" class="btn btn-primary btn-sm">Request</a>
+                    {% elif clearance.signed %}
+                        <button class="btn btn-outline-success btn-sm" disabled>Signed</button>
+                    {% elif clearance.reject_reason != '' and not clearance.signed %}
+                        <a href="{% url 'request_clearance' office.id %}" class="btn btn-outline-danger btn-sm" disabled>Re-send</a>
+                        <span class="text-center flex-fill text-danger m-8"><i class="fa fa-exclamation-circle"></i> {{ clearance.reject_reason }}</span>
+                    {% else %}
+                        <button class="btn btn-secondary btn-sm" disabled>Pending..</button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    </div>
 {% endblock %}
 
 {%block scripts %}

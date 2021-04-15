@@ -1,0 +1,88 @@
+[
+	{
+		"model": "office_app.Event",
+		"fields": {
+			"term": 1,
+			"name": "Test Event 0802",
+			"attendees": [1, 2],
+			"location": 1,
+			"office": 1,
+			"event_datetime_from": "2021-08-02 18:35:35",
+			"event_datetime_to": "2021-08-02 19:35:35",
+			"description": "Testing Description.",
+			"alternative_activity": "Testing Alternative Activity."
+		}
+	},
+	{
+		"model": "office_app.Event",
+		"fields": {
+			"term": 1,
+			"name": "Test Event 0902",
+			"attendees": [3, 2],
+			"location": 3,
+			"office": 2,
+			"event_datetime_from": "2021-09-02 18:35:35",
+			"event_datetime_to": "2021-09-02 19:35:35",
+			"description": "Testing Description.",
+			"alternative_activity": "Testing Alternative Activity."
+		}
+	},
+	{
+		"model": "office_app.Event",
+		"fields": {
+			"term": 1,
+			"name": "Test Event 1002",
+			"attendees": [1, 3],
+			"location": 2,
+			"office": 3,
+			"event_datetime_from": "2021-10-02 18:35:35",
+			"event_datetime_to": "2021-10-02 19:35:35",
+			"description": "Testing Description.",
+			"alternative_activity": "Testing Alternative Activity."
+		}
+	},
+
+
+	{
+		"model": "office_app.Event",
+		"fields": {
+			"term": 2,
+			"name": "Test Event 0102",
+			"attendees": [1, 2],
+			"location": 1,
+			"office": 1,
+			"event_datetime_from": "2021-01-02 18:35:35",
+			"event_datetime_to": "2021-01-02 19:35:35",
+			"description": "Testing Description.",
+			"alternative_activity": "Testing Alternative Activity."
+		}
+	},
+	{
+		"model": "office_app.Event",
+		"fields": {
+			"term": 2,
+			"name": "Test Event 0302",
+			"attendees": [3, 2],
+			"location": 2,
+			"office": 2,
+			"event_datetime_from": "2021-03-02 18:35:35",
+			"event_datetime_to": "2021-03-02 19:35:35",
+			"description": "Testing Description.",
+			"alternative_activity": "Testing Alternative Activity."
+		}
+	},
+	{
+		"model": "office_app.Event",
+		"fields": {
+			"term": 2,
+			"name": "Test Event 0402",
+			"attendees": [1, 3],
+			"location": 3,
+			"office": 3,
+			"event_datetime_from": "2021-04-02 18:35:35",
+			"event_datetime_to": "2021-04-02 19:35:35",
+			"description": "Testing Description.",
+			"alternative_activity": "Testing Alternative Activity."
+		}
+	}
+]

@@ -1,0 +1,223 @@
+[
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 1,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 2,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 3,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 4,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 5,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 6,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 2,
+			"event": 1,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 2,
+			"event": 2,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 2,
+			"event": 3,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 2,
+			"event": 5,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 2,
+			"event": 6,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 3,
+			"event": 1,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 3,
+			"event": 2,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 3,
+			"event": 3,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 3,
+			"event": 6,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 4,
+			"event": 1,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 4,
+			"event": 2,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 4,
+			"event": 3,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 4,
+			"event": 4,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 4,
+			"event": 5,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 4,
+			"event": 6,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 1,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 2,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 3,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 4,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 5,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	},
+	{
+		"model": "office_app.Attendance",
+		"fields": {
+			"student": 1,
+			"event": 6,
+			"datetime_arrived": "2021-04-02 18:36:35"
+		}
+	}
+]
