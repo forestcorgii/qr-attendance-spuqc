@@ -1,2 +1,2 @@
-release: python manage.py migrate
+release: python manage.py migrate && py manage.py loaddata fixtures/1/courses.json && py manage.py loaddata fixtures/1/locations.json && py manage.py loaddata fixtures/1/terms.json && py manage.py loaddata fixtures/1/users.json && py manage.py loaddata fixtures/2/offices.json && py manage.py loaddata fixtures/2/students.json && py manage.py loaddata fixtures/3/events.json && py manage.py loaddata fixtures/4/attendances.json && py manage.py loaddata fixtures/4/clearances.json
 web: gunicorn qr_attendance.wsgi

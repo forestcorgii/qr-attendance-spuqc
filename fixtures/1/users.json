@@ -4,7 +4,7 @@
             "pk": 1,
             "fields": {
                         "password": "pbkdf2_sha256$216000$V0CknK2z9unV$ySSBgKCWiKdmaVVi7AVdmmDpzARVI/U8nYxKye01f98=",
-                        "last_login": null,
+                        "last_login": "2021-04-16T13:24:58.603Z",
                         "is_superuser": false,
                         "email": "admina@gmail.com",
                         "id_number": "00000000000",
@@ -23,7 +23,7 @@
             "pk": 2,
             "fields": {
                         "password": "pbkdf2_sha256$216000$RnG1UaeWnO66$/Qt3y1HolUuD6MrK5L+G7ng6YxVtqpKMV3i9CR7V95Y=",
-                        "last_login": null,
+                        "last_login": "2021-04-12T15:28:44.350Z",
                         "is_superuser": false,
                         "email": "financea@gmail.com",
                         "id_number": "00000000002",
@@ -42,7 +42,7 @@
             "pk": 3,
             "fields": {
                         "password": "pbkdf2_sha256$216000$xadLAtnQMh5P$qKp3XLNGWiCbAi0tt/N2Yo+K1waNftzbHrbIbHVw9EY=",
-                        "last_login": null,
+                        "last_login": "2021-04-10T20:43:47.353Z",
                         "is_superuser": false,
                         "email": "officea@gmail.com",
                         "id_number": "00000000001",
@@ -61,7 +61,7 @@
             "pk": 4,
             "fields": {
                         "password": "pbkdf2_sha256$216000$njENxqkXmbcT$rI5CBgKaHKVK73aXT5XgUw8csVXSs+2lEd4ut2td34A=",
-                        "last_login": null,
+                        "last_login": "2021-04-16T13:35:53.287Z",
                         "is_superuser": false,
                         "email": "officeb@gmail.com",
                         "id_number": "00000000003",
@@ -80,7 +80,7 @@
             "pk": 5,
             "fields": {
                         "password": "pbkdf2_sha256$216000$35XrNeR71sGy$RQVBceN+2QHnpUzQ1zm2GfciYbo8xlP9i9LaLDorH+0=",
-                        "last_login": null,
+                        "last_login": "2021-04-16T13:23:12.629Z",
                         "is_superuser": false,
                         "email": "officec@gmail.com",
                         "id_number": "00000000004",
@@ -99,7 +99,7 @@
             "pk": 6,
             "fields": {
                         "password": "pbkdf2_sha256$216000$zPa85CbALvnh$fbrpAqEvuVTT/fNRx/9/ItSCpjXSHWlTeXA96IKJj5w=",
-                        "last_login": null,
+                        "last_login": "2021-04-08T19:35:26.606Z",
                         "is_superuser": false,
                         "email": "studenta@gmail.com",
                         "id_number": "00000001",
@@ -137,7 +137,7 @@
             "pk": 8,
             "fields": {
                         "password": "pbkdf2_sha256$216000$mOp7s69phN9t$6eMCzGRBGKRz/3+1igq9bAi9XLzRWxqH5aHAQO3OYbA=",
-                        "last_login": null,
+                        "last_login": "2021-04-08T19:35:50.406Z",
                         "is_superuser": false,
                         "email": "studentc@gmail.com",
                         "id_number": "00000003",
@@ -204,6 +204,63 @@
                         "role": null,
                         "is_active": true,
                         "is_admin": true,
+                        "groups": [],
+                        "user_permissions": []
+            }
+},
+{
+            "model": "qr_attendance_app.client",
+            "pk": 12,
+            "fields": {
+                        "password": "pbkdf2_sha256$216000$LGDneLPRzXyX$1zguSf0zyCU89LboL4pw/DoBEsYK0uRXeGHBSQf7j9g=",
+                        "last_login": null,
+                        "is_superuser": false,
+                        "email": "sean.fernandez@ddcgroup.asia",
+                        "id_number": "11010111101101",
+                        "first_name": "sean ivan",
+                        "last_name": "fernandez",
+                        "middle_initial": "M",
+                        "role": 0,
+                        "is_active": true,
+                        "is_admin": false,
+                        "groups": [],
+                        "user_permissions": []
+            }
+},
+{
+            "model": "qr_attendance_app.client",
+            "pk": 13,
+            "fields": {
+                        "password": "pbkdf2_sha256$216000$w0rnotDgaSRz$1vpyL5nCeKmNXYnOWNOPawbXft8A9phOaqXT7YNXTL4=",
+                        "last_login": null,
+                        "is_superuser": false,
+                        "email": "seanivanf@gmail.com",
+                        "id_number": null,
+                        "first_name": null,
+                        "last_name": null,
+                        "middle_initial": null,
+                        "role": null,
+                        "is_active": true,
+                        "is_admin": true,
+                        "groups": [],
+                        "user_permissions": []
+            }
+},
+{
+            "model": "qr_attendance_app.client",
+            "pk": 14,
+            "fields": {
+                        "password": "pbkdf2_sha256$216000$74OoZHK4xAeR$sEXe30+vZNx+nYzAek1Q2FHD7NoxXRveqmfkK9qmRSI=",
+                        "last_login": "2021-04-16T13:26:44.231Z",
+                        "is_superuser": false,
+                        "email": "officed@gmail.com",
+                        "id_number": "00000000004",
+                        "first_name": "OFC D",
+                        "last_name": "FERNANDEZ",
+                        "middle_initial": "M",
+                        "role": 1,
+                        "is_active": true,
+                        "is_admin": false,
                         "groups": [],
                         "user_permissions": []
             }
