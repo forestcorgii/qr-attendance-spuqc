@@ -148,115 +148,121 @@ class Clearance(models.Model):
 
 
 @receiver(post_save, sender=Event)
-def Event_handler(sender, instance, created, **kwargs):
-    subject = ''
-    content = ''
-    sender = 'seanivanf@gmail.com'
-    receiver = []
-    
-    # for course in instance.attendance_set.all():
-    #     for student in course.student_set.all():
-    #         receiver.append(student.user.email)
+def Event_handler(sender, instance, created, raw, **kwargs):
+    if not raw:
+        subject = ''
+        content = ''
+        sender = 'seanivanf@gmail.com'
+        receiver = []
+        
+        # for course in instance.attendance_set.all():
+        #     for student in course.student_set.all():
+        #         receiver.append(student.user.email)
 
-    receiver.append('seanivanf@gmail.com')
-    # receiver.append('rcdejesus@spuqc.edu.ph')
-    # receiver.append('apadua@spuqc.edu.ph')
-    receiver.append('seanivanf@yahoo.com')
+        receiver.append('seanivanf@gmail.com')
+        # receiver.append('rcdejesus@spuqc.edu.ph')
+        # receiver.append('apadua@spuqc.edu.ph')
+        receiver.append('seanivanf@yahoo.com')
 
-    if created:
-        subject = 'An Event has been posted..'
-    else:
-        subject = f'{instance.name} has been editted.'
+        if created:
+            subject = 'An Event has been posted..'
+        else:
+            subject = f'{instance.name} has been editted.'
 
 
-    content = f'''
+        content = f'''
 
-    Name: {instance.name}
-    Date: {instance.event_date_str()}
-    From: {instance.event_time_from_str()} To: {instance.event_time_to_str()}
-    Description: {instance.description}
+        Name: {instance.name}
+        Date: {instance.event_date_str()}
+        From: {instance.event_time_from_str()} To: {instance.event_time_to_str()}
+        Description: {instance.description}
 
-    Failure to attend will be required to:
-    {instance.alternative_activity}
+        Failure to attend will be required to:
+        {instance.alternative_activity}
 
-    '''
+        '''
 
-    send_mail(
-    subject,
-    content,
-    sender,
-    receiver,
-    )
+        send_mail(
+        subject,
+        content,
+        sender,
+        receiver,
+        fail_silently=True
+        )
 
 
 
 @receiver(post_save, sender=Clearance)
-def clearance_handler(sender, instance, created, **kwargs):
-    subject = ''
-    content = ''
-    sender = ''
-    receiver = []
+def clearance_handler(sender, instance, created, raw, **kwargs):
+    if not raw:    
+        subject = ''
+        content = ''
+        sender = ''
+        receiver = []
 
-    if created:        
-        # send to office
-        sender = 'seanivanf@gmail.com'
-        receiver = ['seanivanf@gmail.com']
-        
-        subject = f'{instance.student.user.fullname()} Clearance'
-        content = f'''
-
-        Mr/Ms. {instance.user.fullname()} sent a clearance request.
-
-        '''
-    else:
-        # send to student
-        sender = 'seanivanf@gmail.com'
-        receiver = ['seanivanf@gmail.com']
-
-        if instance.signed:            
-            subject = f'{instance.office} - Approved Clearance Request'
+        if created:        
+            # send to office
+            sender = 'seanivanf@gmail.com'
+            receiver = ['seanivanf@gmail.com']
+            
+            subject = f'{instance.student.user.fullname()} Clearance'
             content = f'''
 
-            {instance}
+            Mr/Ms. {instance.user.fullname()} sent a clearance request.
 
             '''
         else:
-            subject = f'{instance.office} - Rejected Clearance Request'
-            content = f'''
+            # send to student
+            sender = 'seanivanf@gmail.com'
+            receiver = ['seanivanf@gmail.com']
 
-            Your request was rejected due to the following reason/s:
-            {instance.reject_reason}
+            if instance.signed:            
+                subject = f'{instance.office} - Approved Clearance Request'
+                content = f'''
 
-            '''
+                {instance}
 
-    send_mail(
-    subject,
-    content,
-    sender,
-    receiver,
-    )
+                '''
+            else:
+                subject = f'{instance.office} - Rejected Clearance Request'
+                content = f'''
+
+                Your request was rejected due to the following reason/s:
+                {instance.reject_reason}
+
+                '''
+
+        send_mail(
+        subject,
+        content,
+        sender,
+        receiver,
+        fail_silently=True
+        )
 
 
 
 @receiver(post_save, sender=Attendance)
-def attendance_handler(sender, instance, created, **kwargs):
-    subject = f"{instance.event} Attendance receipt"
-    content = ''
-    sender = 'seanivanf@gmail.com'
-    receiver = ['seanivanf@gmail.com']
+def attendance_handler(sender, instance, created, raw, **kwargs):
+    if not raw:
+        subject = f"{instance.event} Attendance receipt"
+        content = ''
+        sender = 'seanivanf@gmail.com'
+        receiver = ['seanivanf@gmail.com']
 
-    if created:
-        subject = 'Term opened.'
-        content = f'''
+        if created:
+            subject = 'Term opened.'
+            content = f'''
 
-        Event: {instance.event}
-        Attended at: {instance.datetime_arrived_str}
+            Event: {instance.event}
+            Attended at: {instance.datetime_arrived_str}
 
-        '''
+            '''
 
-    send_mail(
-    subject,
-    content,
-    sender,
-    receiver,
-    )
+        send_mail(
+        subject,
+        content,
+        sender,
+        receiver,
+        fail_silently=True
+        )
