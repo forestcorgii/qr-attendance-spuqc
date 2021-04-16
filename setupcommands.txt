@@ -1,5 +1,14 @@
 py manage.py migrate
-py manage.py loaddata fixtures/1/*.json && py manage.py loaddata fixtures/2/*.json && py manage.py loaddata fixtures/3/*.json && py manage.py loaddata fixtures/4/*.json
+py manage.py loaddata fixtures/1/courses.json
+py manage.py loaddata fixtures/1/locations.json
+py manage.py loaddata fixtures/1/terms.json
+py manage.py loaddata fixtures/1/users.json
+py manage.py loaddata fixtures/2/offices.json
+py manage.py loaddata fixtures/2/students.json
+py manage.py loaddata fixtures/3/events.json
+py manage.py loaddata fixtures/4/attendances.json
+py manage.py loaddata fixtures/4/clearances.json
 
 
 python manage.py dumpdata qr_attendance_app.Client --indent 12 > users.json
+python manage.py dumpdata qr_attendance_app.Client --indent 12 > offices.json
