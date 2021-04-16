@@ -147,122 +147,122 @@ class Clearance(models.Model):
 
 
 
-@receiver(post_save, sender=Event)
-def Event_handler(sender, instance, created, raw, **kwargs):
-    if not raw:
-        subject = ''
-        content = ''
-        sender = 'seanivanf@gmail.com'
-        receiver = []
+# @receiver(post_save, sender=Event)
+# def Event_handler(sender, instance, created, raw, **kwargs):
+#     if not raw:
+#         subject = ''
+#         content = ''
+#         sender = 'seanivanf@gmail.com'
+#         receiver = []
         
-        # for course in instance.attendance_set.all():
-        #     for student in course.student_set.all():
-        #         receiver.append(student.user.email)
+#         # for course in instance.attendance_set.all():
+#         #     for student in course.student_set.all():
+#         #         receiver.append(student.user.email)
 
-        receiver.append('seanivanf@gmail.com')
-        # receiver.append('rcdejesus@spuqc.edu.ph')
-        # receiver.append('apadua@spuqc.edu.ph')
-        receiver.append('seanivanf@yahoo.com')
+#         receiver.append('seanivanf@gmail.com')
+#         # receiver.append('rcdejesus@spuqc.edu.ph')
+#         # receiver.append('apadua@spuqc.edu.ph')
+#         receiver.append('seanivanf@yahoo.com')
 
-        if created:
-            subject = 'An Event has been posted..'
-        else:
-            subject = f'{instance.name} has been editted.'
-
-
-        content = f'''
-
-        Name: {instance.name}
-        Date: {instance.event_date_str()}
-        From: {instance.event_time_from_str()} To: {instance.event_time_to_str()}
-        Description: {instance.description}
-
-        Failure to attend will be required to:
-        {instance.alternative_activity}
-
-        '''
-
-        send_mail(
-        subject,
-        content,
-        sender,
-        receiver,
-        fail_silently=True
-        )
+#         if created:
+#             subject = 'An Event has been posted..'
+#         else:
+#             subject = f'{instance.name} has been editted.'
 
 
+#         content = f'''
 
-@receiver(post_save, sender=Clearance)
-def clearance_handler(sender, instance, created, raw, **kwargs):
-    if not raw:    
-        subject = ''
-        content = ''
-        sender = ''
-        receiver = []
+#         Name: {instance.name}
+#         Date: {instance.event_date_str()}
+#         From: {instance.event_time_from_str()} To: {instance.event_time_to_str()}
+#         Description: {instance.description}
 
-        if created:        
-            # send to office
-            sender = 'seanivanf@gmail.com'
-            receiver = ['seanivanf@gmail.com']
+#         Failure to attend will be required to:
+#         {instance.alternative_activity}
+
+#         '''
+
+#         send_mail(
+#         subject,
+#         content,
+#         sender,
+#         receiver,
+#         fail_silently=True
+#         )
+
+
+
+# @receiver(post_save, sender=Clearance)
+# def clearance_handler(sender, instance, created, raw, **kwargs):
+#     if not raw:    
+#         subject = ''
+#         content = ''
+#         sender = ''
+#         receiver = []
+
+#         if created:        
+#             # send to office
+#             sender = 'seanivanf@gmail.com'
+#             receiver = ['seanivanf@gmail.com']
             
-            subject = f'{instance.student.user.fullname()} Clearance'
-            content = f'''
+#             subject = f'{instance.student.user.fullname()} Clearance'
+#             content = f'''
 
-            Mr/Ms. {instance.user.fullname()} sent a clearance request.
+#             Mr/Ms. {instance.user.fullname()} sent a clearance request.
 
-            '''
-        else:
-            # send to student
-            sender = 'seanivanf@gmail.com'
-            receiver = ['seanivanf@gmail.com']
+#             '''
+#         else:
+#             # send to student
+#             sender = 'seanivanf@gmail.com'
+#             receiver = ['seanivanf@gmail.com']
 
-            if instance.signed:            
-                subject = f'{instance.office} - Approved Clearance Request'
-                content = f'''
+#             if instance.signed:            
+#                 subject = f'{instance.office} - Approved Clearance Request'
+#                 content = f'''
 
-                {instance}
+#                 {instance}
 
-                '''
-            else:
-                subject = f'{instance.office} - Rejected Clearance Request'
-                content = f'''
+#                 '''
+#             else:
+#                 subject = f'{instance.office} - Rejected Clearance Request'
+#                 content = f'''
 
-                Your request was rejected due to the following reason/s:
-                {instance.reject_reason}
+#                 Your request was rejected due to the following reason/s:
+#                 {instance.reject_reason}
 
-                '''
+#                 '''
 
-        send_mail(
-        subject,
-        content,
-        sender,
-        receiver,
-        fail_silently=True
-        )
+#         send_mail(
+#         subject,
+#         content,
+#         sender,
+#         receiver,
+#         fail_silently=True
+#         )
 
 
 
-@receiver(post_save, sender=Attendance)
-def attendance_handler(sender, instance, created, raw, **kwargs):
-    if not raw:
-        subject = f"{instance.event} Attendance receipt"
-        content = ''
-        sender = 'seanivanf@gmail.com'
-        receiver = ['seanivanf@gmail.com']
+# @receiver(post_save, sender=Attendance)
+# def attendance_handler(sender, instance, created, raw, **kwargs):
+#     if not raw:
+#         subject = f"{instance.event} Attendance receipt"
+#         content = ''
+#         sender = 'seanivanf@gmail.com'
+#         receiver = ['seanivanf@gmail.com']
 
-        if created:
-            subject = 'Term opened.'
-            content = f'''
+#         if created:
+#             subject = 'Term opened.'
+#             content = f'''
 
-            Event: {instance.event}
-            Attended at: {instance.datetime_arrived_str}
+#             Event: {instance.event}
+#             Attended at: {instance.datetime_arrived_str}
 
-            '''
+#             '''
 
-        send_mail(
-        subject,
-        content,
-        sender,
-        receiver,
-        fail_silently=True
-        )
+#         send_mail(
+#         subject,
+#         content,
+#         sender,
+#         receiver,
+#         fail_silently=True
+#         )

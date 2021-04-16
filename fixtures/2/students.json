@@ -1,37 +1,42 @@
 [
-    {
-		"model": "student_app.Student",
-		"fields": {
-			"user": 6,
-			"course": 1
-		}
-	},
-    {
-        "model": "student_app.Student",
-        "fields": {
-            "user": 7,
-            "course": 2
-        }
-	},
-    {
-        "model": "student_app.Student",
-        "fields": {
-            "user": 8,
-            "course": 3
-        }
-    },
-    {
-        "model": "student_app.Student",
-        "fields": {
-            "user": 9,
-            "course": 1
-        }
-    },
-    {
-        "model": "student_app.Student",
-        "fields": {
-            "user": 10,
-            "course": 2
-        }
-    }
+{
+            "model": "student_app.student",
+            "pk": 1,
+            "fields": {
+                        "user": 6,
+                        "course": 1
+            }
+},
+{
+            "model": "student_app.student",
+            "pk": 2,
+            "fields": {
+                        "user": 7,
+                        "course": 2
+            }
+},
+{
+            "model": "student_app.student",
+            "pk": 3,
+            "fields": {
+                        "user": 8,
+                        "course": 3
+            }
+},
+{
+            "model": "student_app.student",
+            "pk": 4,
+            "fields": {
+                        "user": 9,
+                        "course": 1
+            }
+},
+{
+            "model": "student_app.student",
+            "pk": 5,
+            "fields": {
+                        "user": 10,
+                        "course": 2
+            }
+}
 ]
