@@ -1,86 +1,20 @@
-{% extends "../layout.html" %} 
+{% extends "offices/layout.html" %}
 {% load office_extras %}
-{% block title %}Events{% endblock %} 
+{% load static %}
+{% block title %}Clearances{% endblock %}
+
 {%block content %}
+{% for iterm in terms %}
 
-<div class="container mt-2">    
-    <h3>Clearances</h3>
-    <hr>
-    {% for clearance in clearances %}
-        <div class="card mb-2">
-            <div class="card-body">            
-                    <div class="card-title">
-                        <div class="d-flex flex-row flex-wrap">
-                            <h5 class="mr-3">{{ clearance.student.user.fullname }}</h5>
-                            <div>
-                                {% if clearance.signed %}
-                                    <button class="btn btn-outline-success btn-sm" disabled>Approved</button> 
-                                    <a href="{% url 'cancel_clearance' clearance.id %}" class="btn btn-outline-danger btn-sm ml-1"><i class="fa fa-times"></i> Cancel</a>   
-                                {% elif clearance.reject_reason != '' and not clearance.signed %}
-                                    <a href="{% url 'approve_clearance' clearance.id %}" class="btn btn-outline-primary btn-sm"><i class="fa fa-circle-o"></i> Approve</a>   
-                                    <button class="btn btn-outline-danger btn-sm ml-1" disabled>Disapproved</button>
-                                {% else %}
-                                    <a href="{% url 'approve_clearance' clearance.id %}" class="btn btn-outline-primary btn-sm"><i class="fa fa-circle-o"></i> Approve</a>   
+{% get_clearances iterm user.office as clearances %}
 
-                                    <button class="btn btn-outline-danger btn-sm ml-1" data-toggle="modal" data-target="#rejectModal"><i class="fa fa-times"></i> Disapprove</button>                                        
-                                    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-                                       <div class="modal-dialog modal-sm">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="rejectModalLabel">Input Reason</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                
-                                                <form action="{% url 'reject_clearance' clearance.id %}" method="GET" style="width: 100%;">
-                                                    {% csrf_token %}
-                                                    <div class="form-group d-flex">
-                                                        <!-- <label for="reject_reason_id" class="col-form-label">Recipient:</label> -->
-                                                        <input type="text" class="form-control mr-3" id="reject_reason_id" name="reject_reason">
-                                                        <button type="submit" class="btn btn-danger">Send</button>
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                       </div>                   
-                                   </div> 
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    {% get_student_absences user.office clearance.student as absences %}    
-                    {% if absences|length > 0 %}
-                        <h6>Absences</h6>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-sm w-50">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Alternative Activity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for absence in absences %}
-                                    <tr>
-                                        <td style="min-width: 150px;" >{{ absence.name }}</td>
-                                        <td style="min-width: 150px;" >
-                                                <p class="text text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ absence.alternative_activity }}</p>                                
-                                        </td>
-                                    </tr>
-                                    {% endfor %}                             
-                                </tbody>
-                            </table >
-                        </div>    
-                    {% else %}                    
-                        <div class="d-flex align-items-center"><h6>All Events Attended!</h6></div>
-                    {% endif %}
-                  
+{% include 'offices/clearances/clearance.html' with name=iterm clearances=clearances %}
 
-                </div>
-            </div>
-            {% endfor %}
-        </div>	
+{% endfor %}
+{% endblock %}
+
+
+
+{%block scripts %}
+
 {% endblock %}

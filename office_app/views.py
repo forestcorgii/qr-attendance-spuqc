@@ -31,6 +31,7 @@ def home(request):
         'events': events,
         'user': request.user,
         'form': form,
+        'clearances': models.Clearance.objects.filter(office=request.user.office,term=main_models.CurrentTerm()),
     }
     return render(request,'offices/home.html',context)
 
@@ -162,8 +163,8 @@ def Scan(request):
 def clearances(request):
     context = {
         'term': main_models.CurrentTerm(),
+        'terms': main_models.Term.objects.all(),
         'user': request.user,
-        'clearances': models.Clearance.objects.filter(office=request.user.office,term=main_models.CurrentTerm())
     }
 
     return render(request,'offices/clearances/clearances.html',context)

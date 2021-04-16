@@ -17,3 +17,7 @@ def get_student_absences(office, student):
     ]   
     return absences
     
+
+@register.simple_tag
+def get_clearances(term, office):
+    return office_models.Clearance.objects.filter(term=term, office=office)    

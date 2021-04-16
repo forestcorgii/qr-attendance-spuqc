@@ -1,14 +1,17 @@
 {% extends "offices/layout.html" %}
 {% load static %}
+{% load office_extras %}
 {% block title %}Create Event{% endblock %}
 
 
 {%block content %}
+{% if not user.office.is_misc %}
+<div class="container mt-2">
 	<div class="d-flex">
 		<h3 class="ml-2">Events</h3>
 		<button style="margin-bottom: .5rem;" class="btn btn-outline-primary btn-sm ml-1 align-self-end" data-toggle="modal" data-target="#eventcreationModal"><i class="fa fa-plus"></i> </button>                                        
 	</div>
-    {% for event in current_event %}
+    {% for event in events %}
         <div class="card mb-2">
             <div class="card-body">
                 <div class="d-flex flex-row card-title mb-0">
@@ -27,8 +30,11 @@
             </div>
         </div>
     {% endfor %}
-
+</div>
+{% endif %}
+{% include 'offices/clearances/clearance.html' %}
 {% endblock %}
+
 
 
 {%block scripts %}
