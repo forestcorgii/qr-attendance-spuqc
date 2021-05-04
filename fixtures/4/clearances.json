@@ -1,137 +1,166 @@
 [
 	{
 		"model": "office_app.clearance",
+		"pk": 1,
 		"fields": {
 			"office": 1,
 			"student": 1,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 2,
 		"fields": {
 			"office": 1,
 			"student": 2,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 3,
 		"fields": {
 			"office": 1,
 			"student": 3,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 4,
 		"fields": {
 			"office": 1,
 			"student": 4,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 5,
 		"fields": {
 			"office": 1,
 			"student": 5,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
-
 	{
 		"model": "office_app.clearance",
+		"pk": 6,
 		"fields": {
 			"office": 2,
 			"student": 1,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 7,
 		"fields": {
 			"office": 2,
 			"student": 2,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 8,
 		"fields": {
 			"office": 2,
 			"student": 3,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 9,
 		"fields": {
 			"office": 2,
 			"student": 4,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 10,
 		"fields": {
 			"office": 2,
 			"student": 5,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 11,
 		"fields": {
 			"office": 3,
 			"student": 1,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 12,
 		"fields": {
 			"office": 3,
 			"student": 2,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 13,
 		"fields": {
 			"office": 3,
 			"student": 3,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 14,
 		"fields": {
 			"office": 3,
 			"student": 4,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	},
 	{
 		"model": "office_app.clearance",
+		"pk": 15,
 		"fields": {
 			"office": 3,
 			"student": 5,
 			"term": 1,
+			"reject_reason": "",
 			"signed": true
 		}
 	}

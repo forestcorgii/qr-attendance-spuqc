@@ -1,18 +1,12 @@
-{% extends "../layout.html" %} 
-{% block title %}Events{% endblock %} 
-{%block content %}
-
 <div class="container mt-2">
-	<div class="d-flex">
-		<h3 class="ml-2">Events</h3>
-		<button style="margin-bottom: .5rem;" class="btn btn-outline-primary btn-sm ml-1 align-self-end" data-toggle="modal" data-target="#eventcreationModal"><i class="fa fa-plus"></i> </button>                                        
-	</div>
-	<hr>
+    <h4 class="ml-2">{{ name|default:_('Events') }}</h4>
+	
+	
 	{% for event in events %}
 	<div class="card mb-2">
 		<div class="card-body">
 			<div class="d-flex flex-row card-title mb-0">
-				<div><a href="{% url 'event_detail' event.id %}" class="card-link"><h5 class="text-uppercase">{{ event.name }}</h5></a></div>
+				<h5 class="text-uppercase">{{ event.name }}</h5>
 				<div class="ml-auto">						
 					{% for attendees in event.attendees.all %}
 						<span class="badge badge-success">{{ attendees.acronym }}</span>
@@ -22,24 +16,13 @@
 			<div class="d-flex flex-row">
 				<small class="card-subtitle text-muted mr-3"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{ event.location.name }}</small> 
 				<small class="card-subtitle text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{ event.event_datetime_from_str }} to {{ event.event_time_to_str }}</small>
-			</div>
-					
+			</div>					
 			<hr>				
 			<p class="card-text">{{ event.description }}</p>							
+			<br>
+			<a href="{% url 'event_detail' event.id %}" class="card-link">See Details</a>                
 		</div>
 	</div>
 	{% endfor %}
 </div>	
 
-
-{% endblock %}
-
-{% block scripts %}
-<script>
-	jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
-</script>
-{% endblock %} 

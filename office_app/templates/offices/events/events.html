@@ -1,0 +1,32 @@
+{% extends "../layout.html" %} 
+{% load office_extras %}
+{% block title %}Events{% endblock %} 
+{%block content %}
+<div class="container mt-2">    
+    <div class="d-flex">
+        <h2>Events</h2>
+        <button style="margin-bottom: .5rem;" class="btn btn-outline-primary btn-sm ml-1 align-self-end" data-toggle="modal" data-target="#eventcreationModal"><i class="fa fa-plus"></i> </button>                                        
+    </div>
+    <hr>
+</div>
+
+
+{% for iterm in terms %}
+    {% get_events iterm user.office as events %}
+    {% include 'offices/events/event.html' with name=iterm events=events %}
+{% endfor %}
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+<script>
+	jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+{% endblock %} 

@@ -4,6 +4,10 @@
 {% block title %}Clearances{% endblock %}
 
 {%block content %}
+<div class="container mt-2">    
+    <h2>Clearances</h2>
+    <hr>
+</div>
 {% for iterm in terms %}
 
 {% get_clearances iterm user.office as clearances %}

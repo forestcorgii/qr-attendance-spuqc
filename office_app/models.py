@@ -11,6 +11,15 @@ from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
+
+
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+
+
+
 class Office(models.Model):
     name = models.CharField(max_length=75)
     secretary = models.OneToOneField(Client, on_delete=models.CASCADE, null=True)
@@ -89,8 +98,14 @@ class Event(models.Model):
     def event_month_str(self):
         return self.event_datetime_from.strftime("%b")
     
+
+    def clean(self):
+        if Event.objects.filter(event_datetime_from=self.event_datetime_from).count()>0:
+            raise ValidationError(_(f'There is already an Event happening on {self.event_datetime_from_str}'))
+        
     def __str__(self):
         return self.name
+
 
 
 

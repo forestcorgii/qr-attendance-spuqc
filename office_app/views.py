@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 
 
 from qr_attendance_app import models as main_models
+from qr_attendance_app import filters
+
 from student_app import models as student_models
 
 from . import models
@@ -39,9 +41,10 @@ def profile(request):
     return render(request,'offices/profile.html')
 
 
+
 @user_passes_test(OfficerRoleCheck)
 @login_required()
-def event_view(request):
+def event_all(request):
     office = request.user.office
     events = office.RelevantEvents()
 
@@ -57,7 +60,7 @@ def event_view(request):
         'form':form
     }
     
-    return render(request,'offices/events/event.html',context)
+    return render(request,'offices/events/events.html',context)
 
 
 
@@ -78,7 +81,7 @@ def create_event(request):
             event.alternative_activity = form.cleaned_data['alternative_activity']
             event.save()
             event.attendees.set(form.cleaned_data['attendees']) 
-    
+
     return redirect('/office/events/')
 
 
@@ -161,6 +164,20 @@ def Scan(request):
 @user_passes_test(OfficerRoleCheck)
 @login_required()
 def clearances(request):
+
+    items = filters.Clearance(request.GET, queryset=models.Clearance.objects.all())
+    context = {
+        'term': main_models.CurrentTerm(),
+        'terms': main_models.Term.objects.all(),
+        'user': request.user,
+        'clearances':items,
+    }
+
+    return render(request,'offices/clearances/current_clearances.html',context)
+
+
+def clearances_all(request):
+
     context = {
         'term': main_models.CurrentTerm(),
         'terms': main_models.Term.objects.all(),

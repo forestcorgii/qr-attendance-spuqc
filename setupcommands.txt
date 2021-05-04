@@ -1,17 +1,18 @@
 py manage.py migrate
-py manage.py loaddata fixtures/1/courses.json
-py manage.py loaddata fixtures/1/locations.json
-py manage.py loaddata fixtures/1/terms.json
-py manage.py loaddata fixtures/1/users.json
-py manage.py loaddata fixtures/2/offices.json
-py manage.py loaddata fixtures/2/students.json
-py manage.py loaddata fixtures/3/events.json
-py manage.py loaddata fixtures/4/attendances.json
-py manage.py loaddata fixtures/4/clearances.json
+heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/1/courses.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/1/locations.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/1/terms.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/1/users.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/2/offices.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/2/students.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/3/events.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/4/attendances.json && heroku run -a spuqc-qr-attendance python manage.py loaddata fixtures/4/clearances.json
+
+
+py manage.py loaddata fixtures/1/*.json && py manage.py loaddata fixtures/2/*.json && py manage.py loaddata fixtures/3/*.json && py manage.py loaddata fixtures/4/*.json
 
 
 python manage.py dumpdata qr_attendance_app.Client --indent 12 > users.json
 python manage.py dumpdata office_app.Office --indent 12 > offices.json
+python manage.py dumpdata office_app.Event > events.json  
 python manage.py dumpdata student_app.Student --indent 12 > students.json
 
- && python manage.py loaddata fixtures/1/courses.json && python manage.py loaddata fixtures/1/locations.json && python manage.py loaddata fixtures/1/terms.json && python manage.py loaddata fixtures/1/users.json && python manage.py loaddata fixtures/2/offices.json && python manage.py loaddata fixtures/2/students.json && python manage.py loaddata fixtures/3/events.json && python manage.py loaddata fixtures/4/attendances.json && python manage.py loaddata fixtures/4/clearances.json
+python manage.py dumpdata office_app.Attendance > attendances.json  
+python manage.py dumpdata office_app.Clearance > clearances.json  
+
+python manage.py loaddata fixtures/1/courses.json && python manage.py loaddata fixtures/1/locations.json && python manage.py loaddata fixtures/1/terms.json && python manage.py loaddata fixtures/1/users.json && python manage.py loaddata fixtures/2/offices.json && python manage.py loaddata fixtures/2/students.json && python manage.py loaddata fixtures/3/events.json && python manage.py loaddata fixtures/4/attendances.json && python manage.py loaddata fixtures/4/clearances.json
+
+heroku run -a spuqc-qr-attendance py manage.py loaddata fixtures/1/*.json && py manage.py loaddata fixtures/2/*.json && py manage.py loaddata fixtures/3/*.json && py manage.py loaddata fixtures/4/*.json

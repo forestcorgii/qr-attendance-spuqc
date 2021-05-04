@@ -6,14 +6,6 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 
-# from rest_framework import serializers 
-
-# class AttendanceSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = studentModels.Attendance
-#         fields = ['']
-
-
 urlpatterns = [
     path('Scan/',views.Scan,name='scan_event'),
     path('',views.home),
@@ -21,12 +13,11 @@ urlpatterns = [
     
 
     # path('events/edit/<int:pk>/',views.edit,name='edit_event'),
-    path('events/', views.event_view, name='event'),
+    path('events/', views.event_all, name='event'),
     path('events/<int:pk>/',views.detail,name='event_detail'),    
-    path('events/create/', views.event_view, name='create_event'),
+    path('events/create/', views.create_event, name='create_event'),
     path('events/delete/<int:pk>/',views.delete,name='delete_event'),
     
-
     path('clearances/', views.clearances, name='office_clearances'),
     path('clearances/approve/<int:pk>', views.approve_clearance, name='approve_clearance'),    
     path('clearances/reject/<int:pk>', views.reject_clearance, name='reject_clearance'),    

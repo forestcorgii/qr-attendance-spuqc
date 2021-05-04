@@ -1,8 +1,8 @@
 {% load office_extras %}
 
 <div class="container mt-2">    
-    <h3>{{ name|default:_('Clearances') }}</h3>
-    <hr>
+    <h4 class="ml-2">{{ name|default:_('Clearances') }}</h4>
+    {% if clearances|length > 0 %}
     {% for clearance in clearances %}
         <div class="card mb-2">
             <div class="card-body">            
@@ -78,5 +78,14 @@
 
                 </div>
             </div>
-            {% endfor %}
+    {% endfor %}
+    {% else %}
+        <div class="card mb-2">
+            <div class="card-body">            
+                <div class="card-title">
+                    <h5 class="text-center">No Clearance Available Yet..</h5>
+                </div>
+            </div>
+        </div>
+    {% endif %}    
         </div>	

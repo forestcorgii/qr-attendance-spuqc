@@ -20,7 +20,7 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="id_user__id_number__contains">Search:</label>
-            <input class="form-control" type="text"onFocus="this.setSelectionRange(0, this.value.length)" name="user__id_number__contains" id="id_user__id_number__contains" value="{{ students.form.user__id_number__contains.data }}" autofocus>
+            <input class="form-control" type="text" onFocus="this.setSelectionRange(0, this.value.length)" name="user__id_number__contains" id="id_user__id_number__contains" value="{{ students.form.user__id_number__contains.data }}" autofocus>
             <input type="submit" hidden />
         </div>
     </form>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load office_extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,16 +77,26 @@
 				</button>
 			</div>
 			<div class="modal-body">
-			
-			<form action="{% url 'create_event' %}" method="POST" style="width: 100%;">
-				{% csrf_token %}
-				<div class="form-group">
-					{{ form }}
-					<div class="mt-2 d-flex justify-content-end">
-						<button type="submit" class="btn btn-primary">Create</button>
-					</div>
-				</div>
-				</form>
+        {% get_event_today term user.office as event_today %}
+        {% if event_today != None %}
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading">There is already an Event for Today.</h4>
+          <p>An Event from {{ event_today.office }} happening in {{ event_today.event_datetime_from_str }} is already posted.</p>
+        </div>
+        {% endif %}
+        <form action="{% url 'create_event' %}" method="POST" style="width: 100%;">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form }}
+            <div class="mt-2 d-flex justify-content-end">
+              {% if event_today != None %}
+                <button type="submit" class="btn btn-primary" disabled>Create</button>
+              {% else %}
+                <button type="submit" class="btn btn-primary">Create</button>
+              {% endif %}
+            </div>
+          </div>
+          </form>
 			</div>
 		</div>
 	</div>                   
