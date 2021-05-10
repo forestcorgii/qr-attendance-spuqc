@@ -67,7 +67,7 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email',  'is_admin')
+    list_display = ('id_number', 'email', 'role', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -84,7 +84,8 @@ class UserAdmin(BaseUserAdmin):
     )
     search_fields = ('email',)
     ordering = ('email',)
-    filter_horizontal = ()
+    list_filter = ('role', 'is_admin')
+
 
 
 class TermAdmin(admin.ModelAdmin):
@@ -95,9 +96,17 @@ class TermAdmin(admin.ModelAdmin):
         return form
 
 
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('acronym', 'name')
+    
+    ordering = ('name',)
+    
+    
+
+admin.site.site_header = "SPUQC Administration"
 # Now register the new UserAdmin...
 admin.site.register(models.Client, UserAdmin)
-admin.site.register(models.Course)
+admin.site.register(models.Course, CourseAdmin)
 admin.site.register(models.Location)
 admin.site.register(models.Term,TermAdmin)
 # ... and, since we're not using Django's built-in permissions,

@@ -11,8 +11,8 @@ def get_student_attendance(office, student):
     return student.RelevantEvents().filter(office=office)
     
 @register.simple_tag
-def get_student_absences(office, student):
-    events = student.RelevantEvents().filter(office=office)
+def get_student_absences(office, student, term):
+    events = student.RelevantEvents().filter(office=office, term=term)
     absences = [    
         event for event in events
         if not event.attendance_set.filter(student=student).exists()

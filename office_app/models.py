@@ -100,8 +100,12 @@ class Event(models.Model):
     
 
     def clean(self):
-        if Event.objects.filter(event_datetime_from=self.event_datetime_from).count()>0:
-            raise ValidationError(_(f'There is already an Event happening on {self.event_datetime_from_str}'))
+        event = [    
+            event for event in Event.objects.all()
+            if event.event_date_str() == self.event_date_str()
+        ]       
+        if len(event) > 0: 
+            raise ValidationError(_(f'There is already an Event happening on {self.event_date_str}'))
         
     def __str__(self):
         return self.name

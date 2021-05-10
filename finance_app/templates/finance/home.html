@@ -20,7 +20,13 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="id_user__id_number__contains">Search:</label>
-            <input class="form-control" type="text" onFocus="this.setSelectionRange(0, this.value.length)" name="user__id_number__contains" id="id_user__id_number__contains" value="{{ students.form.user__id_number__contains.data }}" autofocus>
+            <input class="form-control" type="text" onFocus="this.setSelectionRange(0, this.value.length)" name="user__id_number__contains" id="id_user__id_number__contains" value="{{ students.form.user__id_number__contains.data|default:_('') }}" autofocus>
+            <!-- <label class="ml-2 mt-2" for="id_completed">Completed:</label>
+            <select class="form-control ml-2 mt-1 form-control-sm" name="completed" id="id_completed">
+                <option value="unknown" selected="">All</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select> -->
             <input type="submit" hidden />
         </div>
     </form>

@@ -8,7 +8,7 @@
             <div class="card-body">            
                     <div class="card-title">
                         <div class="d-flex flex-row flex-wrap">
-                            <h5 class="mr-3">{{ clearance.student.user.fullname }}</h5>
+                            <h5 class="mr-3">{{ clearance.student.user.fullname }} - {{ clearance.term }}</h5>
                             <div>
                                 {% if clearance.signed %}
                                     <button class="btn btn-outline-success btn-sm" disabled>Approved</button> 
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <hr>
-                    {% get_student_absences user.office clearance.student as absences %}    
+                    {% get_student_absences user.office clearance.student clearance.term as absences %}    
                     {% if absences|length > 0 %}
                         <h6>Absences</h6>
                         <div class="table-responsive">

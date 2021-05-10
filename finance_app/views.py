@@ -8,9 +8,11 @@ from qr_attendance_app import filters
 from django.core.mail import send_mail
 
 def home(request):
-    # for i in range(10):
-    #     office_models.Event.objects.all()[0].save()
-    
+
+    # completed = request.GET.get('completed',None)
+    # qs = student_models.Student.objects.all()
+    # if completed == 'yes':
+        
     students = filters.Student(request.GET, queryset=student_models.Student.objects.all())
     
     context = {

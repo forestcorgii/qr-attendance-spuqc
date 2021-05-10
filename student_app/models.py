@@ -21,7 +21,7 @@ class Student(models.Model):
         return self.clearance_set.filter(term=CurrentTerm())
 
     def __str__(self):
-        return f"{self.user.id_number} - {self.user.fullname()}"
+        return self.user.fullname()
 
 
 # @receiver(post_save, sender=Student)

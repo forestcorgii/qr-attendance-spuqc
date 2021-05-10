@@ -81,7 +81,8 @@ def create_event(request):
             event.alternative_activity = form.cleaned_data['alternative_activity']
             event.save()
             event.attendees.set(form.cleaned_data['attendees']) 
-
+        else:
+            return render(request,'error.html',{'term': main_models.CurrentTerm(), 'message':'Event on the same day already exists.'})
     return redirect('/office/events/')
 
 
@@ -164,8 +165,8 @@ def Scan(request):
 @user_passes_test(OfficerRoleCheck)
 @login_required()
 def clearances(request):
-
-    items = filters.Clearance(request.GET, queryset=models.Clearance.objects.all())
+    qs = queryset=models.Clearance.objects.filter(office=request.user.office)
+    items = filters.Clearance(request.GET, queryset=qs)
     context = {
         'term': main_models.CurrentTerm(),
         'terms': main_models.Term.objects.all(),
