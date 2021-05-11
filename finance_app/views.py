@@ -9,16 +9,28 @@ from django.core.mail import send_mail
 
 def home(request):
 
-    # completed = request.GET.get('completed',None)
-    # qs = student_models.Student.objects.all()
-    # if completed == 'yes':
+    id = request.GET.get('id_number', None)
+    completed = request.GET.get('completed', None)
+
+    qs = student_models.Student.objects.filter(user__id_number__contains=id)
+    if completed == 'true':
+        qs = [    
+            student for student in qs
+            if student.is_completed()
+        ]
+    elif completed == 'false':
+        qs = [    
+            student for student in qs
+            if not student.is_completed()
+        ]
         
-    students = filters.Student(request.GET, queryset=student_models.Student.objects.all())
+    # students = filters.Student(request.GET, queryset=qs)
     
     context = {
         'term': main_models.CurrentTerm,
         'user':request.user,
-        'students': students,
+        'students': qs,
+        'filter':{'id_number': id, 'completed': completed}
     }
 
     return render(request,"finance/home.html",context)

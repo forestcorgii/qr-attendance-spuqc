@@ -12,9 +12,10 @@
                 {% csrf_token %}
                 
                 <div class=" d-flex">
-                    <input type="text" class="form-control ml-2 mt-1 form-control-sm" name="student__user__id_number__contains" id="id_student__user__id_number__contains" value="{{ clearances.form.student__user__id_number__contains.data|default:_('') }}" autofocus onFocus="this.setSelectionRange(0, this.value.length)"  placeholder="Student ID">
+                    <input type="text" class="form-control ml-2 mt-1 form-control-sm" name="student__user__id_number__contains" id="id_student__user__id_number__contains" value="{{ clearances.form.student__user__id_number__contains.data|default:_('') }}" autofocus onFocus="this.setSelectionRange(0, this.value.length)"  placeholder="Search Student ID">
                     <select class="form-control ml-2 mt-1 form-control-sm" name="term" id="id_term">
                         {% for iterm in terms %}
+                            <option value="unknown" selected="">All</option>
                             {% if clearances.form.term.data is iterm.id|stringformat:"i" %}
                                 <option value="{{ iterm.id }}" selected="">{{ iterm }}</option>
                             {% else %}

@@ -5,6 +5,8 @@ from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from qr_attendance_app.templatetags.finance_extras import get_unsigned_clearance
+
 class Student(models.Model):
     # student_id = models.IntegerField(primary_key=True,blank=False)
     user = models.OneToOneField(Client, on_delete=models.CASCADE,null=True)
@@ -19,6 +21,10 @@ class Student(models.Model):
     
     def RelevantClearances(self):
         return self.clearance_set.filter(term=CurrentTerm())
+
+    def is_completed(self):
+        clearances = get_unsigned_clearance(self)
+        return len(clearances) == 0
 
     def __str__(self):
         return self.user.fullname()
