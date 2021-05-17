@@ -5,11 +5,11 @@
 
 {%block content %}
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
-
+<!-- 
 <div class="container mt-2">
     <div class="card" style="display: flex;">
         <div>
-            <h1>Current Term - {{ term }}</h1>
+            <h1>Current Term - term</h1>
         </div>
         <div>
             <a href="#" role="button" > <h1 style="color: #ba2121!important;margin: 0px 20px 20px;"> <i class="fa fa-power-off" aria-hidden="true"></i> Close</h1></a>
@@ -19,9 +19,10 @@
 <br>
 No Records yet...
 <br>
-<br>
+<br> -->
         <div class="">
             <h1 class="card-title">Import Student Accounts</h1>
+            <p>The following CSV format should be: <strong>Student ID Number, Email Address, Last Name, First Name, MI</strong></p>
             <hr><br>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

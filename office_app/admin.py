@@ -19,7 +19,7 @@ class AttendanceAdmin(admin.ModelAdmin):
     #     ('Company Information', {'fields': ('company', 'department', 'project', 'schedule', 'active', 'admin')}),
     # )
 
-    search_fields = ('student', 'event')
+    search_fields = ('student__user__id_number','student__user__first_name','student__user__last_name', 'event__name')
     ordering = ('student',)
     list_filter = ('event',)
     

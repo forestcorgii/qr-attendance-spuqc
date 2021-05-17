@@ -91,7 +91,7 @@ class UserAdmin(BaseUserAdmin):
 class TermAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
-        self.exclude = ("date_closed", )
+        # self.exclude = ("date_closed", )
         form = super(TermAdmin, self).get_form(request, obj, **kwargs)
         return form
 

@@ -12,7 +12,11 @@ def home(request):
     id = request.GET.get('id_number', None)
     completed = request.GET.get('completed', None)
 
-    qs = student_models.Student.objects.filter(user__id_number__contains=id)
+    if id == None:
+        qs = student_models.Student.objects.all()
+    else:
+        qs = student_models.Student.objects.filter(user__id_number__contains=id)
+
     if completed == 'true':
         qs = [    
             student for student in qs

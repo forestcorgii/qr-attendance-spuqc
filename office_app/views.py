@@ -195,7 +195,7 @@ def approve_clearance(request, pk):
     clearance = models.Clearance.objects.get(pk=pk)
     clearance.signed = True
     clearance.save()
-    return redirect('/office/clearances')
+    return redirect('/office')
 
 
 @user_passes_test(OfficerRoleCheck)
@@ -206,7 +206,7 @@ def reject_clearance(request, pk):
         clearance.reject_reason = request.GET['reject_reason']
         clearance.signed = False
         clearance.save()
-    return redirect('/office/clearances')
+    return redirect('/office')
 
 
 @user_passes_test(OfficerRoleCheck)
@@ -216,4 +216,4 @@ def cancel_clearance_approval(request, pk):
     clearance.reject_reason = ''
     clearance.signed = False
     clearance.save()
-    return redirect('/office/clearances')
+    return redirect('/office')
