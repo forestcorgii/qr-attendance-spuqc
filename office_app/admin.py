@@ -27,7 +27,7 @@ class AttendanceAdmin(admin.ModelAdmin):
 class ClearanceAdmin(admin.ModelAdmin):
     list_display = ('student', 'office', 'signed', 'term')
     
-    search_fields = ('student', 'office')
+    search_fields = ('student__user__id_number','student__user__first_name','student__user__last_name', 'office__name')
     ordering = ('student',)
     list_filter = ('signed', 'term', 'office')
     
