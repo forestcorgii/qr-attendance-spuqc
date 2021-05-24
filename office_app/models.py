@@ -101,10 +101,10 @@ class Event(models.Model):
 
     def clean(self):
         if self.event_datetime_from != None:
-            event = [    
+            event = [
                 event for event in Event.objects.all()
                 if event.event_date_str() == self.event_date_str()
-            ]       
+            ]
             if len(event) > 0: 
                 raise ValidationError(_(f'There is already an Event happening on {self.event_date_str}'))
         

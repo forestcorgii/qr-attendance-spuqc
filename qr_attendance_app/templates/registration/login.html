@@ -12,7 +12,7 @@
             <div class="card-body">
                 {% if auth_failed %}
                 <div class="alert alert-danger" role="alert">
-				Wrong username or password
+				{{ message|default:_('Invalid Username or Password') }}
 				</div>
                 {% endif %}
                 <form method="post" action="{% url 'login' %}">

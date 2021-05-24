@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
@@ -11,6 +12,7 @@ from . import models
 from . import forms
 
 from student_app import models as student_models
+from office_app import models as office_models
 
 import csv
 import io
@@ -19,7 +21,14 @@ import io
 # Create your views here.
 def index(request):    
     if request.user.is_authenticated:    
-        return redirect('/accounts/profile/')
+        try:
+            # try calling office and student to produce exception
+            request.user.student
+            request.user.office
+            return redirect('/accounts/profile/')
+        except:
+            logout_then_login(request,login_url='/')
+            return redirect('/accounts/login/')        
     else:
         return redirect('/accounts/login/')
 
@@ -81,14 +90,25 @@ def user_logout(request):
 
 def user_login(request):
     auth_failed = False  
+    message = ''
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username,password=password)
         if user != None:
-            login(request,user)
-            return redirect('/')
+            valid = True          
+            if student_models.Student.objects.filter(user=user).count() == 0:
+                valid = False
+                message = 'Your base account does not have a corresponding student account'
+            elif office_models.Office.objects.filter(secretary=user).count() == 0:
+                valid = False
+                message = 'Your base account does not have a corresponding office account'
+            if not valid:
+                auth_failed = True
+            else:
+                login(request,user)
+                return redirect('/')
         else:
             auth_failed = True        
     elif request.method == 'GET' and request.user.is_authenticated:
@@ -96,7 +116,7 @@ def user_login(request):
     else:
         form = forms.LoginForm()
     
-    return render(request, 'registration/login.html', {'form': form,'auth_failed':auth_failed})
+    return render(request, 'registration/login.html', {'form': form,'auth_failed':auth_failed,'message':message})
 
 @login_required
 def import_user(request):
