@@ -23,8 +23,11 @@ def index(request):
     if request.user.is_authenticated:    
         try:
             # try calling office and student to produce exception
-            request.user.student
-            request.user.office
+            if request.user.role == models.Client.OFFICE_SECRETARY:
+                request.user.office
+            elif request.user.role == models.Client.STUDENT:
+                request.user.student
+
             return redirect('/accounts/profile/')
         except:
             logout_then_login(request,login_url='/')
@@ -98,12 +101,10 @@ def user_login(request):
         user = authenticate(username=username,password=password)
         if user != None:
             valid = True          
-            if student_models.Student.objects.filter(user=user).count() == 0:
+            if not (student_models.Student.objects.filter(user=user).count() > 0 or office_models.Office.objects.filter(secretary=user).count() > 0):
                 valid = False
-                message = 'Your base account does not have a corresponding student account'
-            elif office_models.Office.objects.filter(secretary=user).count() == 0:
-                valid = False
-                message = 'Your base account does not have a corresponding office account'
+                message = 'Your base account does not have a corresponding office or student account'
+               
             if not valid:
                 auth_failed = True
             else:
