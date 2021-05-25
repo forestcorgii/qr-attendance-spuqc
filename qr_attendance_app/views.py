@@ -101,9 +101,10 @@ def user_login(request):
         user = authenticate(username=username,password=password)
         if user != None:
             valid = True          
-            if not (student_models.Student.objects.filter(user=user).count() > 0 or office_models.Office.objects.filter(secretary=user).count() > 0):
-                valid = False
-                message = 'Your base account does not have a corresponding office or student account'
+            if not user.is_admin:
+                if not (student_models.Student.objects.filter(user=user).count() > 0 or office_models.Office.objects.filter(secretary=user).count() > 0) and not (user.role == models.Client.FINANCE):
+                    valid = False
+                    message = 'Your base account does not have a corresponding office or student account'
                
             if not valid:
                 auth_failed = True
