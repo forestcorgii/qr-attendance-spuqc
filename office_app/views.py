@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
 
+from django.utils import timezone
 from django.views.generic import ListView
 
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -146,7 +147,7 @@ def Scan(request):
     splated = request.POST['message'].split('_')
     event = models.Event.objects.get(pk=int(request.POST['event_id']))
     # user = main_models.Client.objects.get(email=request.POST['user_email'])
-    timespan = (datetime.datetime.now() - datetime.datetime.strptime(splated[1], "%Y-%m-%d %H:%M:%S"))
+    timespan = (timezone.now() - timezone.strptime(splated[1], "%Y-%m-%d %H:%M:%S"))
     if timespan.total_seconds() <= 17 and event.is_active:
         attendance = models.Attendance()
         attendance.event = event
