@@ -147,7 +147,7 @@ def Scan(request):
     splated = request.POST['message'].split('_')
     event = models.Event.objects.get(pk=int(request.POST['event_id']))
     # user = main_models.Client.objects.get(email=request.POST['user_email'])
-    timespan = (timezone.now() - timezone.strptime(splated[1], "%Y-%m-%d %H:%M:%S"))
+    timespan = (datetime.datetime.now() - datetime.datetime.strptime(splated[1], "%Y-%m-%d %H:%M:%S"))
     if timespan.total_seconds() <= 17 and event.is_active:
         attendance = models.Attendance()
         attendance.event = event
@@ -158,8 +158,8 @@ def Scan(request):
         Student ID: {0}
         Fullname: {1}
         E-mail: {2}
-        """.format(user.id_number,user.id_number, user.email))
-    return HttpResponse('somthing went wrong, please try again.')
+        """.format(user.id_number,user.fullname(), user.email))
+    return HttpResponse('Your QR has expired, please try again.')
 
 
 

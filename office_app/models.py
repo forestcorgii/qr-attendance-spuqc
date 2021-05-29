@@ -3,7 +3,7 @@ from qr_attendance_app.models import Client, Course, Location, Term, CurrentTerm
 from student_app.models import Student
 # Create your models here.
 
-from django.utils import timezone
+# from django.utils import datetime.datetime
 import datetime
 
 from django.core.mail import send_mail
@@ -65,12 +65,12 @@ class Event(models.Model):
 
     @property
     def is_active(self):
-        timespan = (timezone.now() - self.event_datetime_from)
+        timespan = (datetime.datetime.now() - self.event_datetime_from)
         return timespan.total_seconds() > -(15 * 60) and timespan.total_seconds() < (100 * 60)
     
     @property
     def has_opened(self):
-        return (timezone.now() - self.event_datetime_from).total_seconds() > -(15 * 60)
+        return (datetime.datetime.now() - self.event_datetime_from).total_seconds() > (15 * 60)
 
     def event_date_str(self):
         return self.event_datetime_from.strftime("%m/%d/%Y")

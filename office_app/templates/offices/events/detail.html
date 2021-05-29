@@ -11,7 +11,7 @@
 		<div class="alert alert-success" role="alert">
 			<h4 class="alert-heading">The Following Event has Ended</h4>
 			<p>You can no longer add attendance or edit the following details below.</p>
-			<!-- <hr> -->
+			<!-- <hr> -->			
 			<!-- <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p> -->
 		</div>
 		<div>
@@ -41,7 +41,7 @@
 				</div>
 			{% endif %}
 		</div>
-		{% else %}
+		{% elif event.is_active %}
 			<div id="qr-reader"></div>
 			<div id="qr-reader-results"></div>
 		{% endif %}
