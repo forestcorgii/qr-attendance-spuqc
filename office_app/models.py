@@ -66,7 +66,7 @@ class Event(models.Model):
     @property
     def is_active(self):
         timespan = (datetime.datetime.now() - self.event_datetime_from)
-        return timespan.total_seconds() > -(15 * 60) and timespan.total_seconds() < (100 * 60)
+        return timespan.total_seconds() > -(30 * 60) and timespan.total_seconds() < (100 * 60)
     
     @property
     def has_opened(self):
@@ -103,7 +103,7 @@ class Event(models.Model):
         if self.event_datetime_from != None:
             event = [
                 event for event in Event.objects.all()
-                if event.event_date_str() == self.event_date_str()
+                if event.event_date_str() == self.event_date_str() and not self.id == event.id
             ]
             if len(event) > 0: 
                 raise ValidationError(_(f'There is already an Event happening on {self.event_date_str}'))
