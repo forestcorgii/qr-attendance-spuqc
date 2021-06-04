@@ -75,7 +75,6 @@ class Event(models.Model):
     def event_date_str(self):
         return self.event_datetime_from.strftime("%m/%d/%Y")
 
-
     def event_datetime_from_str(self):
         return self.event_datetime_from.strftime("%m/%d/%Y %I:%M%p")
 
