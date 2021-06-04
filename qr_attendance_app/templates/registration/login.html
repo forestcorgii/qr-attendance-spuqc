@@ -6,15 +6,16 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 <div class="d-flex justify-content-center" style="height: 97vh;">
-    <!-- <div class="align-self-center flex-row w-50">         -->
-        <div class="align-self-center card" style="max-width: 350px;">
+        <div class="align-self-center card" style="max-width: 400px;">
             <img src="{% static 'img/logo.png' %}" class="card-img-top"  alt="logo">
             <div class="card-body">
+                <h3 class="text-center">SPUQC QR ATTENDANCE</h3>
                 {% if auth_failed %}
                 <div class="alert alert-danger" role="alert">
 				{{ message|default:_('Invalid Username or Password') }}
 				</div>
                 {% endif %}
+                <br/>
                 <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                         <div class="flex-row mb-1">
@@ -35,7 +36,6 @@
             </div>
         </div>
 
-    <!-- </div> -->
 </div>
 
 {% endblock %}
