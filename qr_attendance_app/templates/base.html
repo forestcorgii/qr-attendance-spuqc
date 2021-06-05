@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}SPUQC QR Events Attendance and Digital Clearance{% endblock %}</title>
 
     <link
       rel="stylesheet"
@@ -38,7 +38,7 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="{% url 'ultimate_home' %}">
     <img src="{% static 'img/logo.png' %}" width="30" height="30" alt="" loading="lazy">
-    SPUQC QR Attendance - {{ term }}
+    {{ term }}
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
