@@ -97,15 +97,28 @@ class Event(models.Model):
     def event_month_str(self):
         return self.event_datetime_from.strftime("%b")
     
-
+    def has_conflict(self, event):
+        return (event.event_datetime_from > self.event_datetime_from and event.event_datetime_from < self.event_datetime_to) or (event.event_datetime_to > self.event_datetime_from and event.event_datetime_to < self.event_datetime_to)
+   
     def clean(self):
         if self.event_datetime_from != None:
             event = [
                 event for event in Event.objects.all()
-                if event.event_date_str() == self.event_date_str() and not self.id == event.id
+                if event.has_conflict(self) and not self.id == event.id
             ]
             if len(event) > 0: 
-                raise ValidationError(_(f'There is already an Event happening on {self.event_date_str}'))
+                raise ValidationError(_(f'There is already an Event happening on {event[0].event_datetime_from_str()} to {event[0].event_datetime_to_str()}'))
+ 
+    # def clean(self):
+    #     if self.event_datetime_from != None:
+    #         # need to make sure that events don't overlap
+            
+    #         event = [
+    #             event for event in Event.objects.all()
+    #             if event.event_date_str() == self.event_date_str() and not self.id == event.id
+    #         ]
+    #         if len(event) > 0: 
+    #             raise ValidationError(_(f'There is already an Event happening on {self.event_date_str}'))
         
     def __str__(self):
         return self.name
