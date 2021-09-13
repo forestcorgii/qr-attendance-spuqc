@@ -11,11 +11,15 @@ def home(request):
 
     id = request.GET.get('id_number', None)
     completed = request.GET.get('completed', None)
+    course = request.GET.get('course', None)
 
     if id == None:
         qs = student_models.Student.objects.all()
     else:
         qs = student_models.Student.objects.filter(user__id_number__contains=id)
+
+    if course != None:
+        qs = student_models.Student.objects.filter(course=main_models.Course.objects.filter(acronym=course)[0])
 
     if completed == 'true':
         qs = [    
@@ -34,7 +38,8 @@ def home(request):
         'term': main_models.CurrentTerm,
         'user':request.user,
         'students': qs,
-        'filter':{'id_number': id, 'completed': completed}
+        'courses': main_models.Course.objects.all(),
+        'filter':{'id_number': id, 'completed': completed, 'course': course}
     }
 
     return render(request,"finance/home.html",context)

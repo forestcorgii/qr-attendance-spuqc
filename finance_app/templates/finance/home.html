@@ -38,6 +38,20 @@
                     <option value="false" selected="">No</option>                
                 {% endif %}
             </select>
+            <select class="form-control ml-2 mt-1 form-control-sm" name="course" id="id_course" style="max-width: 8em;">
+                {% for course in courses %}
+                    {% if filter.course == course.acronym %}
+                        <option value="{{ course.acronym }}" selected="">{{ course.acronym }}</option>
+                    {% else %}
+                        <option value="{{ course.acronym }}">{{ course.acronym }}</option>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if filter.course == 'unknown' %}
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                {% endif %}
+            </select>
             <input type="submit" class="btn btn-secondary btn-sm ml-2" />                    
         </div>
         </div>
