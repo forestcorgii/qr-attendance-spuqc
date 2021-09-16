@@ -59,10 +59,26 @@
 
     {% for student in students %}
     {% get_unsigned_clearance student as offices %}
+    {% get_verification_status student as student_verified %}
         <div class="card mb-2">
             <div class="card-body">
-                <div class="card-title">
-                    <h5>{{ student.user.id_number }} - {{ student.user.fullname }}</h5>
+                <div class="card-title d-flex">
+                    <div>
+                        <h5>
+                            {{ student.user.id_number }} - {{ student.user.fullname }}
+                        </h5>
+                    </div>
+                    <div class="ml-auto">
+                        {% if student_verified == True %}
+                            <button class="btn btn-success btn-sm" disabled>Verified</button>
+                        {% else %}
+                            <form action="{% url 'finance_verify' %}" method="POST">
+			                    {% csrf_token %}
+                                <input type="hidden" name="student_id" value="{{ student.user.id_number }}"/>
+                                <input type="submit" class="btn btn-outline-primary btn-sm" value="Verify"/>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
                 <hr>
                 {% if offices|length > 0 %}
@@ -84,4 +100,52 @@
 {% endblock %}
 
 
-{%block scripts %}{% endblock %}
+{%block scripts %}
+
+<script>	
+	// function docReady(fn) {
+	// 	// see if DOM is already available
+	// 	if (
+	// 		document.readyState === "complete" ||
+	// 		document.readyState === "interactive"
+	// 	) {
+	// 		// call on next available tick
+	// 		setTimeout(fn, 1);
+	// 	} else {
+    
+	// 	}
+	// }
+
+	// function getCookie(name) {
+	// 	var cookieValue = null;
+	// 	if (document.cookie && document.cookie !== '') {
+	// 		var cookies = document.cookie.split(';');
+	// 		for (var i = 0; i < cookies.length; i++) {
+	// 			var cookie = cookies[i].trim();
+	// 			// Does this cookie string begin with the name we want?
+	// 			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+	// 				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	// 				break;
+	// 			}
+	// 		}
+	// 	}
+	// 	return cookieValue;
+	// }
+
+	// function sendVerifyAPI(message){
+	// 	let data = new FormData();
+	// 	data.append('message',message);
+	// 	data.append('user_email','{{ user.email }}');
+	// 	data.append('event_id','{{ event_id }}');
+	// 	data.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').attr('value'));
+	// 	fetch("{% url 'scan_event' %}", {
+	// 		method: 'POST',
+	// 		body: data,
+	// 		credentials: 'same-origin',
+	// 	}).then(response => response.text())
+	// 	.then(result => alert(result))
+	// 	.catch(error => alert.log('error', error));
+	// }
+</script>
+
+{% endblock %}

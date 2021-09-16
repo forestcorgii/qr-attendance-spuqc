@@ -1,5 +1,5 @@
 from django.db import models
-from qr_attendance_app.models import Client, Course, CurrentTerm
+from qr_attendance_app.models import Client, Course, CurrentTerm, Term
 
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
@@ -30,6 +30,11 @@ class Student(models.Model):
         return self.user.fullname()
 
 
+class Signature(models.Model):
+	student = models.ForeignKey(Student, on_delete=models.CASCADE)
+	term = models.ForeignKey(Term, on_delete=models.CASCADE)
+	verified = models.BooleanField(default=False)
+    
 # @receiver(post_save, sender=Student)
 # def student_handler(sender, created, **kwargs):
 #     send_mail(

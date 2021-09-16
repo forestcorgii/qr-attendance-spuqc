@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from qr_attendance_app import models as main_models
 from office_app import models as office_models
@@ -6,6 +6,8 @@ from student_app import models as student_models
 from qr_attendance_app import filters
 
 from django.core.mail import send_mail
+
+from django.contrib.auth.decorators import login_required,user_passes_test
 
 def home(request):
 
@@ -43,3 +45,13 @@ def home(request):
     }
 
     return render(request,"finance/home.html",context)
+
+@login_required()
+def verify(request):
+    student_id = request.POST.get('student_id', None)
+    if student_id != None:
+        student = student_models.Student.objects.get(user__id_number=student_id)
+        if student != None:
+            signature = student_models.Signature(student=student, term=main_models.CurrentTerm(), verified=True)
+            signature.save()
+    return redirect("/")
